@@ -214,7 +214,7 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 /* Academy transition strip: the same single-line marquee rhythm as Go AXS. */
 .brand-strip { overflow: hidden; }
 .brand-strip-viewport { overflow: hidden; padding-block: 28px; }
-.brand-strip-track { display: flex; width: max-content; white-space: nowrap; animation: academy-strip-marquee 38s linear infinite; will-change: transform; }
+.brand-strip-track { display: flex; width: max-content; white-space: nowrap; animation: academy-strip-marquee 31.7s linear infinite; will-change: transform; }
 .brand-strip-track span { flex: none; padding-right: 16px; color: rgb(247 244 250 / .85); font-family: var(--font-display), serif; font-size: 2.25rem; font-style: normal; font-weight: 300; letter-spacing: normal; line-height: 1; font-kerning: normal; }
 .brand-strip-track b { font: inherit; font-weight: inherit; }
 @keyframes academy-strip-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
