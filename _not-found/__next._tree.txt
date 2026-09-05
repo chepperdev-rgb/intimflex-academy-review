@@ -1,2 +1,2 @@
-:HL["/intimflex-academy-review/_next/static/chunks/23sftnpt2zn3s.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"_Kr8Ptok9Gl81XLKxhmnM"}
+:HL["/intimflex-academy-review/_next/static/chunks/0g3wfnyesg-_g.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"wpyl27jOmb1U61mSkcJEL"}
