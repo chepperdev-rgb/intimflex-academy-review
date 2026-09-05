@@ -1,4 +1,4 @@
-:HL["/intimflex-academy-review/_next/static/chunks/3t33bj973p2mx.css","style"]
+:HL["/intimflex-academy-review/_next/static/chunks/3fw9hrjos0vvi.css","style"]
 :HL["/intimflex-academy-review/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/intimflex-academy-review/_next/static/media/daa29454a3e61cb2-s.p.25_z0nxfvnd9o.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"pG7Cda2-I5MIhEFEj7NQw"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"Rg5n0SmSvJOAneDacL1oT"}
