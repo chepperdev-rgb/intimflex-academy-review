@@ -225,18 +225,31 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
   .hero-actions .button { min-width: 0; }
 }
 
-/* Academy transition strip: the same single-line marquee rhythm as Go AXS. */
-.brand-strip { overflow: hidden; }
-.brand-strip-viewport { overflow: hidden; padding-block: 28px; }
+/* Academy transition strip: compact line with the same single-line marquee rhythm as Go AXS. */
+.brand-strip { overflow: visible; }
+.brand-strip-viewport {
+  overflow: hidden;
+  padding-block: 12px;
+  box-shadow: 0 18px 52px -30px rgb(240 80 159 / .42);
+  animation: academy-strip-float 5.6s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
 .brand-strip-track { display: flex; width: max-content; white-space: nowrap; animation: academy-strip-marquee 31.7s linear infinite; will-change: transform; }
 .brand-strip-track span { flex: none; padding-right: 16px; color: rgb(247 244 250 / .85); font-family: var(--font-display); font-size: 2.25rem; font-style: normal; font-weight: 300; letter-spacing: normal; line-height: 1; font-kerning: normal; }
 .brand-strip-track b { font: inherit; font-weight: inherit; }
 @keyframes academy-strip-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes academy-strip-float {
+  0%, 100% { transform: translateY(0); box-shadow: 0 18px 52px -30px rgb(240 80 159 / .42); }
+  50% { transform: translateY(-1px); box-shadow: 0 22px 64px -28px rgb(240 80 159 / .64); }
+}
 @media (max-width: 600px) {
-  .brand-strip-viewport { padding-block: 28px; }
+  .brand-strip-viewport { padding-block: 10px; }
   .brand-strip-track span { font-size: 1.875rem; }
 }
-@media (prefers-reduced-motion: reduce) { .brand-strip-track { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .brand-strip-viewport { animation: none; box-shadow: 0 18px 52px -30px rgb(240 80 159 / .42); }
+  .brand-strip-track { animation: none; }
+}
 
 /* Hero distill pass: one promise, one action, one emotional image. */
 .hero-grid { min-height: 680px; gap: 10%; padding-top: 104px; padding-bottom: 64px; }
