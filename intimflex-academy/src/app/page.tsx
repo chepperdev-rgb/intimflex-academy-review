@@ -7,9 +7,7 @@ import type { ReactElement, ReactNode } from "react";
 
 type Lang = "EN" | "RU" | "ES";
 const contact = "mailto:academy@axsintimflex.com?subject=AXS%20INTIMFLEX%20Trainer%20Certification";
-const basePath = process.env.GITHUB_PAGES === "1"
-  ? "/intimflex-academy-review"
-  : (process.env.NEXT_PUBLIC_BASE_PATH ?? "");
+const basePath = "/intimflex-academy-review";
 const asset = (path: string) => `${basePath}${path}`;
 
 function normalizeCopy(value: unknown, lang: Lang): unknown {
