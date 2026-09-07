@@ -255,6 +255,110 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
   .brand-strip-track { animation: none; }
 }
 
+/* Button system: match the live AXS INTIMFLEX CTA proportions and rhythm. */
+.header-cta,
+.button {
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body), sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.header-cta {
+  border: 0;
+  background: var(--rosewood);
+  color: #fff;
+  animation: cta-pulse 1.9s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+.header-cta:hover,
+.header-cta:focus-visible {
+  background: var(--rosewood);
+  color: #fff;
+  transform: scale(1.04);
+  animation-play-state: paused;
+}
+.button-primary {
+  color: #fff;
+  animation: cta-pulse 1.9s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+.button-primary:hover,
+.button-primary:focus-visible {
+  background: var(--rosewood);
+  color: #fff;
+  transform: scale(1.04);
+  animation-play-state: paused;
+}
+.button-ghost,
+.button-dark-outline {
+  text-align: center;
+}
+.payment-card .button-primary {
+  animation: cta-pulse 1.9s ease-in-out infinite;
+}
+.payment-card .button-primary:hover,
+.payment-card .button-primary:focus-visible {
+  transform: scale(1.04);
+  animation-play-state: paused;
+}
+.final-cta .button-dark-outline {
+  animation: cta-pulse 1.9s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+.final-cta .button-dark-outline:hover,
+.final-cta .button-dark-outline:focus-visible {
+  transform: scale(1.04);
+  animation-play-state: paused;
+}
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgb(240 80 159 / .6), 0 14px 44px -12px rgb(240 80 159 / .5); }
+  50% { box-shadow: 0 0 0 14px rgb(240 80 159 / 0), 0 14px 60px -8px rgb(240 80 159 / .85); }
+}
+
+@media (min-width: 801px) {
+  .header-cta,
+  .button { min-height: 56px; padding-inline: 28px; font-size: 12px; }
+  .header-cta { min-height: 40px; padding-inline: 20px; font-size: 10px; }
+}
+@media (max-width: 800px) {
+  .mobile-nav .mobile-nav-cta {
+    min-height: 48px;
+    justify-content: center;
+    margin-top: 16px;
+    padding: 0 24px;
+    border-radius: var(--radius-pill);
+    background: var(--rosewood);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-align: center;
+    text-transform: uppercase;
+    animation: cta-pulse 1.9s ease-in-out infinite;
+  }
+  .mobile-nav .mobile-nav-cta:hover,
+  .mobile-nav .mobile-nav-cta:focus-visible {
+    color: #fff;
+    transform: scale(1.04);
+    animation-play-state: paused;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-cta,
+  .button-primary,
+  .mobile-nav .mobile-nav-cta,
+  .final-cta .button-dark-outline { animation: none; }
+}
+
 /* Hero distill pass: one promise, one action, one emotional image. */
 .hero-grid { min-height: 680px; gap: 10%; padding-top: 104px; padding-bottom: 64px; }
 .hero-copy { max-width: 600px; }
@@ -370,3 +474,23 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 /* Certification paths: reuse the approved payment-card shell motion only. */
 .status-card { animation: academy-hero-card-glow 3.4s ease-in-out infinite; will-change: transform, box-shadow; }
 .status-card:hover, .status-card:focus-within { animation-play-state: paused; }
+
+/* Final cascade: payment CTAs use the same live-site pulse after all legacy passes. */
+.payment-card .button-primary {
+  animation: cta-pulse 1.9s ease-in-out infinite;
+  box-shadow: none;
+}
+.payment-card .button { min-height: 48px; }
+.payment-card .button-primary:hover,
+.payment-card .button-primary:focus-visible {
+  background: var(--rosewood);
+  color: #fff;
+  transform: scale(1.04);
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .payment-card .button-primary { animation: none; }
+}
+@media (min-width: 801px) {
+  .payment-card .button { min-height: 56px; }
+}
