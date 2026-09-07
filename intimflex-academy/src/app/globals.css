@@ -107,6 +107,8 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .founder-photo-shell { position: relative; width: 100%; aspect-ratio: 1; align-self: start; overflow: hidden; border-radius: var(--radius-card); animation: academy-hero-card-glow 3.4s ease-in-out infinite; will-change: transform, box-shadow; }
 .founder-photo-shell img { position: absolute !important; inset: 0; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; object-position: center 28%; }
 .founder-photo-shell:hover, .founder-photo-shell:focus-visible { animation-play-state: paused; outline: 1px solid rgb(255 155 203 / .7); outline-offset: 5px; }
+.founder > div:last-child { display: flex; flex-direction: column; align-items: flex-start; }
+.founder > div:last-child .text-link { margin-top: auto; }
 .founder h3 { font-size: clamp(2.3rem, 4vw, 4rem); line-height: .9; }
 .founder p:not(.eyebrow) { max-width: 480px; margin: 14px 0 18px; color: var(--petal-dim); font-size: 14px; line-height: 1.6; }
 .text-link, .deposit a { display: inline-flex; align-items: center; gap: 7px; color: var(--rose-gold); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
