@@ -328,6 +328,18 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
   .header-cta,
   .button { min-height: 56px; padding-inline: 28px; font-size: 12px; }
   .header-cta { min-height: 40px; padding-inline: 20px; font-size: 10px; }
+
+  /* Payment CTAs only: match the desktop Packages buttons on go.axsintimflex.com. */
+  .payment-card .button-primary {
+    min-height: 44px;
+    height: 44px;
+    padding-block: 12px;
+    font-family: var(--font-body), sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    line-height: 20px;
+  }
 }
 @media (max-width: 800px) {
   .mobile-nav .mobile-nav-cta {
@@ -492,5 +504,5 @@ html[lang="ru"] .hero h1 { line-height: .94; }
   .payment-card .button-primary { animation: none; }
 }
 @media (min-width: 801px) {
-  .payment-card .button { min-height: 56px; }
+  .payment-card .button { min-height: 44px; }
 }
