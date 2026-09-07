@@ -47,7 +47,7 @@ export default function CourseLanguageModal({ variant, siteLang, onClose }: { va
     return () => { document.body.style.overflow = previousOverflow; document.removeEventListener("keydown", onKeyDown); };
   }, [onClose]);
 
-  const labels: Array<[PaymentLang, string]> = [["en", "English"], ["es", "Español"], ["ru", "Русский"]];
+  const labels: Array<[PaymentLang, string]> = [["en", "English"], ["es", "Español"], ["ru", siteLang === "RU" ? "РУС." : "RU"]];
   const text = copy[siteLang];
   const modal = (
     <div className="academy-language-overlay" role="dialog" aria-modal="true" aria-label={text.title} onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
