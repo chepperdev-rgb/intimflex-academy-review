@@ -302,6 +302,7 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 .investment-copy > p:not(.eyebrow) { max-width: 500px; }
 .royalty-note { margin-top: 25px; }
 .payment-card { position: relative; min-width: 0; overflow: hidden; border: 1px solid var(--rosewood); border-radius: var(--radius-card); background: var(--vin-noir); isolation: isolate; }
+.payment-card { animation: academy-hero-card-glow 3.4s ease-in-out infinite; will-change: transform, box-shadow; }
 .payment-card > img { position: absolute !important; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .payment-card-shade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(180deg, rgb(11 7 16 / .78) 0%, rgb(11 7 16 / .32) 40%, rgb(11 7 16 / .9) 100%); }
 .reserve-card > img { right: 0; left: 50%; width: 50%; }
@@ -320,6 +321,8 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 .payment-card-bottom > strong { margin-bottom: 9px; color: var(--petal); font-family: var(--font-display); font-size: clamp(4rem, 6vw, 5.4rem); font-weight: 300; letter-spacing: -.05em; line-height: .72; }
 .reserve-card .payment-card-bottom > strong { color: var(--rose-gold); }
 .payment-card .button { width: 100%; min-height: 45px; }
+.payment-card .button-primary { animation: academy-payment-button-pulse 3.4s ease-in-out infinite; box-shadow: 0 10px 28px -16px rgb(240 80 159 / .72); will-change: transform, box-shadow; }
+.payment-card .button-primary:hover, .payment-card .button-primary:focus-visible { animation-play-state: paused; }
 .payment-details { margin-top: 11px; border: 1px solid var(--rose-gold); border-radius: var(--radius-pill); }
 .payment-details summary { display: flex; min-height: 39px; align-items: center; justify-content: center; gap: 8px; cursor: pointer; list-style: none; color: var(--rose-gold); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .payment-details summary::-webkit-details-marker { display: none; }
@@ -347,10 +350,15 @@ html[lang="ru"] .hero h1 { line-height: .94; }
   .full-card { min-height: 485px; }
 }
 
+@keyframes academy-payment-button-pulse {
+  0%, 100% { box-shadow: 0 10px 28px -16px rgb(240 80 159 / .72); }
+  50% { box-shadow: 0 14px 34px -13px rgb(240 80 159 / .95); }
+}
+
 /* Payment-block precision pass: preserve the approved composition and copy. */
 .payment-card > img { filter: brightness(.88); }
 .investment-copy h2 { margin-bottom: 4px; }
 .investment-copy h2 em { display: inline-block; transform: translateY(-4px); }
-.payment-card-bottom > strong { margin-bottom: 15px; line-height: .82; }
+.payment-card-bottom > strong { margin-bottom: 27px; line-height: .82; }
 .payment-details[open] { padding: 8px 0 6px; border-radius: 14px; }
 .payment-details[open] summary { margin-bottom: 8px; }
