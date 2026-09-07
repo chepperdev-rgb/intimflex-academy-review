@@ -362,3 +362,7 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 .payment-card-bottom > strong { margin-bottom: 27px; line-height: .82; }
 .payment-details[open] { padding: 8px 0 6px; border-radius: 14px; }
 .payment-details[open] summary { margin-bottom: 8px; }
+
+/* Certification paths: reuse the approved payment-card shell motion only. */
+.status-card { animation: academy-hero-card-glow 3.4s ease-in-out infinite; will-change: transform, box-shadow; }
+.status-card:hover, .status-card:focus-within { animation-play-state: paused; }
