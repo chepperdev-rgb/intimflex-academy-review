@@ -506,3 +506,20 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 @media (min-width: 801px) {
   .payment-card .button { min-height: 44px; }
 }
+
+/* Course language chooser: the same quiet, rose-lit modal language as Go AXS. */
+.academy-language-overlay { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 20px; background: rgb(6 4 9 / .82); backdrop-filter: blur(10px); animation: academy-modal-fade 220ms ease-out both; }
+.academy-language-modal { position: relative; width: min(100%, 480px); max-height: min(92vh, 680px); overflow-y: auto; padding: clamp(30px, 6vw, 52px); border: 1px solid rgb(255 155 203 / .38); border-radius: 24px; background: linear-gradient(145deg, #2b1240, #120a19 78%); color: var(--petal); box-shadow: 0 40px 120px -30px rgb(240 80 159 / .6), 0 26px 70px -42px rgb(240 80 159 / .9); animation: academy-modal-rise 360ms var(--ease-out) both; }
+.academy-language-modal::after { position: absolute; right: 13%; bottom: -24px; left: 13%; height: 45px; border-radius: 50%; background: rgb(240 80 159 / .38); content: ""; filter: blur(26px); pointer-events: none; }
+.academy-language-modal h2 { max-width: 360px; font-size: clamp(2.5rem, 7vw, 4rem); line-height: .9; }
+.academy-language-close { position: absolute; top: 16px; right: 17px; display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; border: 1px solid rgb(247 244 250 / .2); border-radius: 50%; background: transparent; color: var(--petal); cursor: pointer; font: inherit; font-size: 24px; line-height: 1; transition: border-color var(--dur-fast) ease, color var(--dur-fast) ease, transform var(--dur-fast) ease; }
+.academy-language-close:hover, .academy-language-close:focus-visible { border-color: var(--rosewood); color: var(--rose-gold); transform: rotate(8deg); }
+.academy-language-options { display: grid; gap: 11px; margin-top: 29px; }
+.academy-language-option { position: relative; z-index: 1; display: flex; min-height: 54px; align-items: center; justify-content: center; border: 1px solid rgb(247 244 250 / .25); border-radius: var(--radius-pill); background: transparent; color: var(--petal); cursor: pointer; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-align: center; text-transform: uppercase; transition: border-color var(--dur-fast) ease, background-color var(--dur-fast) ease, color var(--dur-fast) ease, transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) ease; }
+.academy-language-option:first-child { border-color: var(--rosewood); background: var(--rosewood); color: #fff; box-shadow: 0 12px 34px -18px rgb(240 80 159 / .9); }
+.academy-language-option:hover, .academy-language-option:focus-visible { border-color: var(--rosewood); background: var(--rosewood); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 30px -17px rgb(240 80 159 / .9); }
+.academy-language-note { position: relative; z-index: 1; max-width: 390px; margin: 22px 0 0; color: var(--petal-dim); font-size: 12px; line-height: 1.55; }
+@keyframes academy-modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes academy-modal-rise { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (max-width: 600px) { .academy-language-overlay { padding: 14px; } .academy-language-modal { padding: 31px 21px 27px; border-radius: 18px; } .academy-language-modal h2 { padding-right: 30px; font-size: clamp(2.25rem, 11vw, 3.5rem); } .academy-language-option { min-height: 52px; } }
+@media (prefers-reduced-motion: reduce) { .academy-language-overlay, .academy-language-modal { animation: none; } .academy-language-close, .academy-language-option { transition: none; } }
