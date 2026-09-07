@@ -293,3 +293,64 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 @media (max-width: 800px) {
   html[lang="ru"] .hero h1 { line-height: .96; }
 }
+
+/* Investment cards: the approved Academy payment composition. */
+.investment { padding-top: 92px; padding-bottom: 70px; }
+.investment-grid { grid-template-columns: minmax(0, .93fr) minmax(0, 1.07fr); gap: 24px; align-items: stretch; }
+.investment-copy { display: flex; min-width: 0; flex-direction: column; }
+.investment-copy h2 { max-width: 560px; }
+.investment-copy > p:not(.eyebrow) { max-width: 500px; }
+.royalty-note { margin-top: 25px; }
+.payment-card { position: relative; min-width: 0; overflow: hidden; border: 1px solid var(--rosewood); border-radius: var(--radius-card); background: var(--vin-noir); isolation: isolate; }
+.payment-card > img { position: absolute !important; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.payment-card-shade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(180deg, rgb(11 7 16 / .78) 0%, rgb(11 7 16 / .32) 40%, rgb(11 7 16 / .9) 100%); }
+.reserve-card > img { right: 0; left: 50%; width: 50%; }
+.reserve-card .payment-card-shade { background: linear-gradient(90deg, rgb(11 7 16 / .98) 0%, rgb(11 7 16 / .88) 42%, rgb(11 7 16 / .28) 100%); }
+.payment-card-content { display: flex; min-height: 100%; flex-direction: column; padding: 25px 20px 19px; }
+.payment-card h3 { margin: 0; color: var(--petal); font-family: var(--font-display); font-size: 33px; font-weight: 400; line-height: .9; }
+.payment-card h3 em, .full-card-heading h3 em { color: var(--rose-gold); font-style: normal; }
+.reserve-card { min-height: 300px; margin-top: 30px; }
+.reserve-card h3 { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: none; }
+.reserve-copy { display: grid; gap: 2px; margin-top: 15px; color: var(--petal); font-size: 11px; line-height: 1.25; }
+.full-card { min-height: 576px; }
+.full-card-heading h3 { max-width: 370px; font-size: clamp(3rem, 4.2vw, 4.2rem); line-height: .84; }
+.full-card-heading h3 span { color: var(--petal); }
+.full-card-heading p { margin: 9px 0 0; color: var(--petal); font-size: 11px; line-height: 1.2; }
+.payment-card-bottom { display: flex; margin-top: auto; flex-direction: column; align-items: stretch; }
+.payment-card-bottom > strong { margin-bottom: 9px; color: var(--petal); font-family: var(--font-display); font-size: clamp(4rem, 6vw, 5.4rem); font-weight: 300; letter-spacing: -.05em; line-height: .72; }
+.reserve-card .payment-card-bottom > strong { color: var(--rose-gold); }
+.payment-card .button { width: 100%; min-height: 45px; }
+.payment-details { margin-top: 11px; border: 1px solid var(--rose-gold); border-radius: var(--radius-pill); }
+.payment-details summary { display: flex; min-height: 39px; align-items: center; justify-content: center; gap: 8px; cursor: pointer; list-style: none; color: var(--rose-gold); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.payment-details summary::-webkit-details-marker { display: none; }
+.payment-details summary b { font-size: 15px; font-weight: 400; line-height: 1; }
+.payment-details[open] summary b { transform: rotate(180deg); }
+.payment-details > p { margin: 0; padding: 0 15px 12px; color: var(--petal-dim); font-size: 11px; line-height: 1.45; }
+.payment-details > ul { margin: 0; padding: 0 26px 13px; color: var(--petal-dim); font-size: 11px; line-height: 1.45; }
+.payment-details li + li { margin-top: 4px; }
+@media (max-width: 800px) {
+  .investment-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .investment-copy { display: contents; }
+  .investment-copy > .eyebrow, .investment-copy > h2, .investment-copy > p, .investment-copy > .royalty-note { grid-column: 1; }
+  .investment-copy > .eyebrow { order: 1; }
+  .investment-copy > h2 { order: 1; }
+  .investment-copy > p { order: 1; }
+  .investment-copy > .royalty-note { order: 1; }
+  .full-card { order: 2; min-height: 520px; }
+  .reserve-card { order: 3; min-height: 285px; margin-top: 0; }
+  .full-card-heading h3 { font-size: clamp(3rem, 13vw, 4.2rem); }
+}
+@media (max-width: 600px) {
+  .investment { padding-top: 76px; padding-bottom: 60px; }
+  .investment-grid { gap: 22px; }
+  .payment-card-content { padding: 21px 18px 17px; }
+  .full-card { min-height: 485px; }
+}
+
+/* Payment-block precision pass: preserve the approved composition and copy. */
+.payment-card > img { filter: brightness(.88); }
+.investment-copy h2 { margin-bottom: 4px; }
+.investment-copy h2 em { display: inline-block; transform: translateY(-4px); }
+.payment-card-bottom > strong { margin-bottom: 15px; line-height: .82; }
+.payment-details[open] { padding: 8px 0 6px; border-radius: 14px; }
+.payment-details[open] summary { margin-bottom: 8px; }
