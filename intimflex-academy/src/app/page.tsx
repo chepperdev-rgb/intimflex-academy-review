@@ -168,35 +168,35 @@ export default function Home() {
   const t = normalizeCopy(content[lang], lang) as typeof content[typeof lang];
   const certification = certificationCopy[lang];
   const programIntro = lang === "EN"
-    ? "The complete method, teaching technique and practice with feedback. Preparation for independent work with clients and the final assessment."
+    ? "Complete preparation from the ground up: from mastering the method to leading sessions independently. Practise with personal feedback from Ilona and finish with a live online exam."
     : lang === "RU"
-      ? "Полная методика, техника преподавания и практика с обратной связью. Подготовка к самостоятельной работе с клиентками и финальной аттестации."
-      : "El método completo, la técnica de enseñanza y la práctica con feedback. Preparación para trabajar de forma independiente con clientas y superar la evaluación final.";
+      ? "Полная подготовка с нуля: от освоения методики до самостоятельного проведения занятий. Практика с персональной проверкой Илоны и финальный онлайн-экзамен"
+      : "Preparación completa desde cero: desde dominar el método hasta dirigir sesiones de forma independiente. Practica con la revisión personalizada de Ilona y completa un examen online en tiempo real.";
   const curriculum = lang === "EN"
     ? [
-        ["The AXS INTIMFLEX Method", "Study the system from a trainer’s perspective.", "Work through the core training blocks and understand their purpose and sequence. The full core method is included in the program; you do not need to purchase a separate course in advance."],
-        ["Technique", "Perform precisely. Notice and correct mistakes.", "Study exercise technique and common errors. Learn to demonstrate movement, observe how it is performed and give a client clear cues."],
-        ["Teaching", "Learn to explain and lead a session.", "Master a clear sequence for teaching exercises: explanation, demonstration, observation and feedback. Learn to help a client understand and master each movement."],
-        ["Training structure", "Learn to build a complete session.", "Study how to structure a workout: warm-up, main blocks, exercise sequence and finish. Understand how to connect exercises into a complete session."],
-        ["Work formats", "Individual and group. Online and in person.", "Learn the specifics of personal and group sessions. Understand how to organise explanation, demonstration and technique observation in each format."],
-        ["Practice and assessment", "Practise your skills and confirm your preparation.", "Complete practical assignments, demonstrate the technique and receive feedback. The certificate is issued after the program requirements are completed and the final exam is passed successfully."],
+        ["The AXS INTIMFLEX Method", "Pelvic floor, breathing, movement and flexibility.", "Study the pelvic floor muscles, breathing, movement and flexibility as components of the AXS INTIMFLEX method. The program also covers nutrition basics and women’s psychology, self-confidence and body image."],
+        ["Execution technique", "Master the exercises and control your movements.", "Break down starting positions, movement sequences and how exercises combine with breathing. Learn to notice mistakes in your own execution and correct your technique."],
+        ["Working with a client", "Explain, observe and correct.", "Learn to explain and demonstrate exercises clearly, observe their execution and give helpful cues. Adapt the workload to the client’s level and account for training limitations and contraindications."],
+        ["Building a workout", "Create a session from warm-up to finish.", "Learn to organise the sequence of exercises, combine them into training blocks and distribute the workload throughout the session. Build a complete workout with a warm-up, main section and finish."],
+        ["Teaching formats", "One-to-one and group, online and in person.", "Explore the specifics of personal and group sessions. Learn to organise exercise demonstration and observation when working in a studio and through a screen."],
+        ["Practice and exam", "Personal technique check with Ilona and a live online exam.", "Submit video recordings of your exercise performance. Ilona personally checks your technique and gives feedback. Complete your preparation with a live online final exam."],
       ]
     : lang === "RU"
       ? [
-          ["Методика AXS INTIMFLEX", "Изучи систему с позиции тренера.", "Пройди основные тренировочные блоки и разберись в их назначении и последовательности. Полная основная методика входит в программу. Предварительно покупать отдельный курс не нужно."],
-          ["Техника", "Выполняй точно. Замечай и исправляй ошибки.", "Разбери технику упражнений и распространённые ошибки. Учись демонстрировать движения, наблюдать за выполнением и давать клиентке понятные подсказки."],
-          ["Преподавание", "Научись объяснять и вести занятие.", "Освой последовательную подачу упражнений: объяснение, демонстрация, наблюдение и обратная связь. Учись помогать клиентке понять движение и освоить его."],
-          ["Структура тренировки", "Научись составлять полноценное занятие.", "Разбери построение тренировки: разминка, основные блоки, последовательность упражнений и завершение. Пойми, как связывать упражнения в цельное занятие."],
-          ["Форматы работы", "Индивидуально и в группе. Онлайн и офлайн.", "Изучи особенности персональных и групповых занятий. Разбери, как организовать объяснение, демонстрацию и наблюдение за техникой в каждом формате."],
-          ["Практика и аттестация", "Отработай навыки и подтверди подготовку.", "Выполняй практические задания, демонстрируй технику и получай обратную связь. Сертификат выдаётся после выполнения требований программы и успешной сдачи финального экзамена."],
+          ["Методика AXS INTIMFLEX", "Тазовое дно, дыхание, пластика и гибкость.", "Изучи работу мышц тазового дна, дыхание, пластику и гибкость как составляющие методики AXS INTIMFLEX. В программу также входят основы питания и темы женской психологии, уверенности в себе и отношения к своему телу."],
+          ["Техника выполнения", "Освой упражнения и контроль движений.", "Разбери исходные положения, последовательность движений и сочетание упражнений с дыханием. Научись замечать ошибки в собственном выполнении и корректировать технику."],
+          ["Работа с клиенткой", "Объясняй, наблюдай и корректируй.", "Научись понятно объяснять и показывать упражнения, наблюдать за выполнением и давать подсказки. Подбирай нагрузку под уровень клиентки, учитывай ограничения и противопоказания к тренировкам."],
+          ["Построение тренировки", "Составляй занятие от разминки до завершения.", "Научись выстраивать последовательность упражнений, соединять их в тренировочные блоки и распределять нагрузку в течение занятия. Собирай полноценную тренировку с разминкой, основной частью и завершением."],
+          ["Форматы преподавания", "Персонально и в группе, онлайн и офлайн.", "Разбери особенности персональных и групповых занятий. Научись организовывать показ упражнений и наблюдение за клиентками при работе в зале и через экран."],
+          ["Практика и экзамен", "Персональная проверка Илоны и онлайн-экзамен.", "Отправляй видеозаписи выполнения упражнений. Илона лично проверяет технику и даёт обратную связь. Заверши подготовку финальным онлайн-экзаменом в прямом эфире."],
         ]
       : [
-          ["Método AXS INTIMFLEX", "Estudia el sistema desde la perspectiva de una trainer.", "Recorre los bloques principales y comprende su propósito y secuencia. El método completo está incluido en el programa; no necesitas comprar un curso aparte por adelantado."],
-          ["Técnica", "Ejecuta con precisión. Detecta y corrige errores.", "Estudia la técnica de los ejercicios y los errores habituales. Aprende a demostrar los movimientos, observar su ejecución y dar indicaciones claras a la clienta."],
-          ["Enseñanza", "Aprende a explicar y dirigir una sesión.", "Domina una secuencia clara para enseñar los ejercicios: explicación, demostración, observación y feedback. Aprende a ayudar a la clienta a entender y dominar cada movimiento."],
-          ["Estructura de la sesión", "Aprende a crear una sesión completa.", "Estudia cómo estructurar una sesión: calentamiento, bloques principales, secuencia de ejercicios y cierre. Comprende cómo unir los ejercicios en una sesión completa."],
-          ["Formatos de trabajo", "Individual y grupal. Online y presencial.", "Estudia las particularidades de las sesiones individuales y grupales. Aprende a organizar la explicación, la demostración y la observación de la técnica en cada formato."],
-          ["Práctica y evaluación", "Practica tus habilidades y confirma tu preparación.", "Realiza tareas prácticas, demuestra la técnica y recibe feedback. El certificado se emite después de cumplir los requisitos del programa y superar el examen final."],
+          ["Método AXS INTIMFLEX", "Suelo pélvico, respiración, movimiento y flexibilidad.", "Estudia el trabajo de los músculos del suelo pélvico, la respiración, el movimiento y la flexibilidad como componentes del método AXS INTIMFLEX. El programa también incluye nociones básicas de nutrición y temas de psicología femenina, confianza y relación con el propio cuerpo."],
+          ["Técnica de ejecución", "Domina los ejercicios y el control de los movimientos.", "Analiza las posiciones iniciales, la secuencia de movimientos y la combinación de ejercicios con la respiración. Aprende a detectar errores en tu propia ejecución y a corregir la técnica."],
+          ["Trabajo con la clienta", "Explica, observa y corrige.", "Aprende a explicar y mostrar los ejercicios con claridad, observar su ejecución y dar indicaciones útiles. Adapta la carga al nivel de la clienta y ten en cuenta sus limitaciones y contraindicaciones para entrenar."],
+          ["Construcción de la sesión", "Crea una sesión desde el calentamiento hasta el cierre.", "Aprende a organizar la secuencia de ejercicios, unirlos en bloques de entrenamiento y distribuir la carga durante la sesión. Crea una sesión completa con calentamiento, parte principal y cierre."],
+          ["Formatos de enseñanza", "Individual y grupal, online y presencial.", "Analiza las particularidades de las sesiones individuales y grupales. Aprende a organizar la demostración y la observación de los ejercicios al trabajar en sala y a través de una pantalla."],
+          ["Práctica y examen", "Revisión personalizada de Ilona y examen online en tiempo real.", "Envía grabaciones en vídeo de la ejecución de los ejercicios. Ilona revisa personalmente tu técnica y te da feedback. Completa tu preparación con un examen final online en tiempo real."],
         ];
   const stripCopy = lang === "EN"
     ? "MASTER THE METHOD → PRACTICE IT → GET CERTIFIED → START TEACHING"
