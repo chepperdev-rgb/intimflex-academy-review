@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Check, Menu, X } from "lucide-react";
-import { cloneElement, isValidElement, useEffect, useState } from "react";
-import type { ReactElement, ReactNode } from "react";
+import { cloneElement, isValidElement, useEffect, useRef, useState } from "react";
+import type { CSSProperties, ReactElement, ReactNode } from "react";
 import CourseLanguageModal from "./CourseLanguageModal";
 
 type Lang = "EN" | "RU" | "ES";
@@ -69,6 +69,7 @@ const content = {
     nav: ["Программа", "Сертификация", "Стоимость", "FAQ"], enroll: "Записаться", enrollNow: "Запишись", reserve: "Забронируй", reserveSpot: "Забронируй место", heroEyebrow: "AXS INTIMFLEX · СЕРТИФИКАЦИЯ ТРЕНЕРОВ", heroTitle: <>Стань тренером<br /><em>AXS INTIMFLEX</em></>, heroLede: "Освой профессиональную методику, научись преподавать её и подготовься проводить собственные онлайн- и офлайн-тренировки.", cohort: "ПЕРВЫЙ МЕЖДУНАРОДНЫЙ ПОТОК", date: "12 ОКТЯБРЯ 2026", places: "ТОЛЬКО 10 МЕСТ", full: "ПОЛНАЯ ПРОГРАММА", reserveYour: "Забронируй место", facts: ["Освоить методику", "Практика с обратной связью", "Сдать экзамен", "Получить сертификат"], strip: "Одна методика. Один сфокусированный поток.", stripSub: "Прямой путь от обучения к преподаванию.", seeLearn: "Узнай, что ты изучишь", programEyebrow: "ПРОГРАММА", programTitle: <>Освой.<br /><em>Преподавай.</em></>, programIntro: "Полная методика, техника на уровне тренера, структура преподавания, практика и аттестация в одной профессиональной программе.", practiceEyebrow: "МЕТОДИКА В ПРАКТИКЕ", practiceTitle: <>Учи тому, что<br /><em>видишь.</em></>, practiceCopy: "Наблюдение превращает знание движения в точную помощь: покажи упражнение, заметь детали и помоги клиентке найти правильную технику.", seePaths: "Узнай о статусах после сертификации", after: "ПОСЛЕ СЕРТИФИКАЦИИ", pathsTitle: <>Один сертификат.<br /><em>Два пути.</em></>, pathsIntro: "После успешного экзамена ты получаешь статус Certified Trainer. Дополнительное membership — отдельный путь в официальную активную сеть.", required: "СЕРТИФИКАЦИЯ · ОБЯЗАТЕЛЬНО", optional: "ЛИЦЕНЗИЯ · ОПЦИОНАЛЬНО", certifiedTitle: <>Certified<br />Trainer</>, activeTitle: <>Active Licensed<br />Trainer</>, certifiedCopy: "Пройди программу и успешно сдай финальный экзамен. Сертификат подтверждает профессиональную подготовку по методике AXS IntimFlex.", confirms: "Что подтверждает сертификат", confirmsCopy: "Ты получаешь AXS IntimFlex Certified Trainer Certificate с индивидуальным номером. Сертификат сохраняется, даже если позднее ты прекратишь membership.", activeCopy: "Сертифицированный тренер, который отдельно выбирает Trainer License & Membership за $150 в месяц и присоединяется к официальной сети AXS IntimFlex.", adds: "Что даёт membership", membership: ["Официальный статус Active Licensed Trainer", "Право использовать бренд на условиях лицензии", "Размещение на официальном сайте и профиль тренера", "Отображение страны и города и потенциальные заявки клиентов", "Актуальные материалы, обновления и ресурсы тренера", "Материалы Академии, плейлисты, сообщество и поддержка"], royalties: "0% royalties с самостоятельно проводимых тренировок.", founderEyebrow: "МЕТОДИКА · ILONA CHERNOBAI", founderTitle: <>Пока другие только узнают, ты уже преподаёшь и зарабатываешь.</>, founderCopy: "AXS INTIMFLEX – методика, созданная Илоной Чернобай. Академия готовит тренеров, которые понимают её принципы, уверенно показывают и объясняют упражнения, проводят тренировки, а после получения сертификата могут начать собственную практику в любой точке мира с возможностью зарабатывать тысячи долларов.", explore: "Изучи AXS IntimFlex", investment: "СТОИМОСТЬ", investTitle: <>Сделай<br /><em>методику своей.</em></>, investCopy: "Первый международный поток ограничен десятью тренерами, чтобы каждый получил проверку техники, обратную связь и поддержку.", royaltyShort: "0% royalties с самостоятельно проводимых тренировок.", ten: "10 МЕСТ", cert: "Trainer Certification", fullSmall: "Полная стоимость · старт 12 октября 2026 · 100% онлайн", includes: ["Полная методика AXS IntimFlex", "Техника и преподавание на уровне тренера", "Практика, обратная связь и аттестация", "Финальный экзамен и сертификат", "Подготовка к онлайн- и офлайн-работе", "Индивидуальные и групповые форматы"], deposit: "Невозвратный reservation deposit. Входит в общую стоимость $2,499. Остаток до начала программы: $2,000.", faqEyebrow: "FAQ", faqTitle: <>Перед<br /><em>записью.</em></>, faqs: [["Когда начинается программа?", "Первый поток начинается 12 октября 2026 года."], ["Сколько мест доступно?", "В первом потоке доступно только 10 мест."], ["Сколько стоит сертификация?", "Полная Trainer Certification стоит $2,499. Место можно забронировать невозвратным депозитом $499, который входит в общую стоимость; остаток — $2,000."], ["Обучение полностью онлайн?", "Да. Программа проходит 100% онлайн."], ["Нужно ли сначала покупать обычный курс AXS IntimFlex?", "Нет. Полная основная методика входит в Trainer Certification Program и изучается на более глубоком профессиональном уровне."], ["Каждая ли участница получает сертификат?", "Нет. Сертификат выдаётся только после прохождения программы и успешной сдачи финального экзамена. Оплата сама по себе не гарантирует сертификат."], ["Что можно делать после сертификации?", "Программа готовит к персональным и групповым занятиям онлайн и офлайн, собственному расписанию и ценообразованию. Использование бренда AXS IntimFlex регулируется отдельной Trainer License."], ["Обязательно ли Trainer License & Membership?", "Нет. Это отдельный выбор после сертификации. Стоимость — $150 в месяц; бесплатного периода после экзамена нет."], ["Что даёт membership?", "Статус Active Licensed Trainer, использование бренда по лицензии, каталог и профиль, отображение страны и города, потенциальные заявки, материалы и обновления, ресурсы Академии, плейлисты, сообщество и поддержку. В каталоге находятся тренеры с активным membership."], ["Есть ли royalties с моих занятий?", "Нет. Royalties с самостоятельно проводимых тренировок — 0%. Ты сам устанавливаешь стоимость и сохраняешь доход от работы."], ["Что будет при прекращении membership?", "Сертификат сохраняется. Прекращаются статус Active Licensed Trainer, профиль в каталоге, доступ к обновляемым материалам и benefits membership; право представляться действующим лицензированным тренером и использование бренда регулируются Trainer License Agreement."]], finalEyebrow: "AXS INTIMFLEX · СЕРТИФИКАЦИЯ ТРЕНЕРОВ", finalTitle: <>Твой город может<br /><em>стать следующим.</em></>, finalCopy: "Освой методику, получи сертификацию и потенциально проводи AXS IntimFlex-тренировки в своём городе на условиях сертификации и лицензии.", footer: "AXS IntimFlex Trainer Certification", language: "Язык", close: "Закрой меню", open: "Открой меню"
   },
   ES: {
+    name: "ILONA CHERNOBAI",
     curriculum: [["Método AXS IntimFlex", "Aprende el sistema desde la perspectiva de una trainer.", "Recorre los bloques principales y comprende la lógica del sistema para enseñar el método, no solo practicarlo para ti."], ["Técnica", "Ve, demuestra y corrige cada ejercicio.", "Estudia la técnica correcta, los detalles de ejecución y los errores habituales. Aprende a demostrar y corregir la técnica de una clienta."], ["Enseñanza", "Convierte tus conocimientos en una experiencia clara.", "Aprende a explicar, demostrar, observar y corregir ejercicios con una estructura profesional."], ["Estructura de la sesión", "Construye una sesión completa.", "Comprende la secuencia: calentamiento, bloques principales, orden de ejercicios, técnica, trabajo con la clienta y cierre."], ["Formatos", "Trabajo individual, grupal, online y presencial.", "Prepárate para 1:1 Personal Training y Group Classes online o presenciales, conduciendo tus propias sesiones."], ["Práctica, feedback y evaluación", "Aplica el método y supera el examen final.", "Realiza tareas prácticas, demuestra la técnica y recibe revisiones, correcciones y recomendaciones. La certificación requiere superar la evaluación y el examen."]], path: ["Aprendizaje", "Práctica", "Evaluación", "Certificado"],
     nav: ["Programa", "Certificación", "Inversión", "FAQ"], enroll: "Inscribirme", enrollNow: "Inscríbete", reserve: "Reservar", reserveSpot: "Reserva tu plaza", heroEyebrow: "AXS INTIMFLEX · CERTIFICACIÓN DE TRAINERS", heroTitle: <>Conviértete en trainer<br /><em>AXS INTIMFLEX</em></>, heroLede: "Domina el método profesional, aprende a enseñarlo y prepárate para dirigir tus propias sesiones online o presenciales.", cohort: "PRIMERA PROMOCIÓN INTERNACIONAL", date: "12 DE OCTUBRE DE 2026", places: "SOLO 10 PLAZAS", full: "PROGRAMA COMPLETO", reserveYour: "Reserva tu plaza", facts: ["Aprende el método", "Practica con feedback", "Supera el examen", "Recibe tu certificado"], strip: "Un método. Una promoción enfocada.", stripSub: "Un camino directo del aprendizaje al liderazgo.", seeLearn: "Ver lo que aprenderás", programEyebrow: "EL PROGRAMA", programTitle: <>Apréndelo.<br /><em>Enséñalo.</em></>, programIntro: "El método completo, técnica a nivel de trainer, estructura de enseñanza, práctica y evaluación en un programa profesional.", practiceEyebrow: "EL MÉTODO EN PRÁCTICA", practiceTitle: <>Enseña lo que<br /><em>puedes ver.</em></>, practiceCopy: "La observación convierte el conocimiento del movimiento en una guía útil: demuestra con claridad, detecta el detalle y ayuda a la clienta a encontrar la técnica correcta.", seePaths: "Ver las vías de certificación", after: "DESPUÉS DE LA CERTIFICACIÓN", pathsTitle: <>Un certificado.<br /><em>Dos vías.</em></>, pathsIntro: "Aprobar el examen te da el estatus Certified Trainer. La membresía opcional es la vía separada hacia la red oficial activa.", required: "CERTIFICACIÓN · REQUERIDA", optional: "LICENCIA · OPCIONAL", certifiedTitle: <>Certified<br />Trainer</>, activeTitle: <>Active Licensed<br />Trainer</>, certifiedCopy: "Completa el programa y supera el examen final. Tu certificado confirma tu preparación profesional en el método AXS IntimFlex.", confirms: "Qué confirma", confirmsCopy: "Recibes el AXS IntimFlex Certified Trainer Certificate con un número individual. El certificado permanece contigo aunque después canceles la membresía.", activeCopy: "Una trainer certificada que elige el Trainer License & Membership separado de $150/mes y se une a la red oficial AXS IntimFlex.", adds: "Qué añade la membresía", membership: ["Estatus oficial Active Licensed Trainer", "Uso de la marca según los términos de licencia", "Perfil y presencia en la web oficial", "País y ciudad visibles y posibles consultas de clientes", "Materiales, actualizaciones y recursos profesionales", "Materiales de la Academia, playlists, comunidad y soporte"], royalties: "0% de royalties de tus clases realizadas de forma independiente.", founderEyebrow: "EL MÉTODO · ILONA CHERNOBAI", founderTitle: <>Mientras otras apenas están aprendiendo, tú ya estás enseñando y ganando.</>, founderCopy: "AXS INTIMFLEX es un método creado por Ilona Chernobai. La Academia prepara a entrenadores para dominar sus principios, demostrar y explicar los ejercicios con confianza, impartir sesiones de entrenamiento y, después de obtener la certificación, comenzar su propia práctica en cualquier parte del mundo con la posibilidad de generar miles de dólares.", explore: "Explorar AXS IntimFlex", investment: "INVERSIÓN", investTitle: <>Haz tuyo<br /><em>el método.</em></>, investCopy: "La primera promoción internacional está limitada a diez trainers para que cada participante reciba revisiones de técnica, feedback y apoyo.", royaltyShort: "0% de royalties de tus clases independientes.", ten: "10 PLAZAS", cert: "Trainer Certification", fullSmall: "Inversión total · comienza el 12 de octubre de 2026 · 100% online", includes: ["Método completo AXS IntimFlex", "Técnica y enseñanza a nivel trainer", "Práctica, feedback y evaluación", "Examen final y certificado", "Preparación para trabajo online y presencial", "Formatos individuales y grupales"], deposit: "Depósito de reserva no reembolsable. Se descuenta del total de $2,499. Saldo restante antes de comenzar: $2,000.", faqEyebrow: "FAQ", faqTitle: <>Antes de<br /><em>inscribirte.</em></>, faqs: [["¿Cuándo empieza el programa?", "La primera promoción empieza el 12 de octubre de 2026."], ["¿Cuántas plazas hay?", "Solo hay 10 plazas en la primera promoción."], ["¿Cuál es el precio?", "La Trainer Certification completa cuesta $2,499. Puedes reservar tu plaza con un depósito no reembolsable de $499, descontado del total; el saldo es $2,000."], ["¿La formación es totalmente online?", "Sí. El programa es 100% online."], ["¿Necesito comprar primero el curso normal?", "No. El método completo está incluido en el Trainer Certification Program y se estudia a un nivel profesional más profundo."], ["¿Todas reciben un certificado?", "No. Se emite solo después de completar el programa y superar el examen final. El pago por sí solo no garantiza el certificado."], ["¿Qué puedo hacer después de certificarme?", "El programa te prepara para sesiones individuales y grupales, online y presenciales, con tu propio horario, precios y base de clientes. El uso de la marca se rige por una Trainer License separada."], ["¿Es obligatoria la Trainer License & Membership?", "No. Es una elección separada después de la certificación. Cuesta $150/mes y no hay periodo gratuito tras el examen."], ["¿Qué incluye la membresía?", "Estatus Active Licensed Trainer, uso licenciado de la marca, perfil y directorio oficiales, país y ciudad visibles, posibles consultas, materiales y actualizaciones, recursos de Academy, playlists, comunidad y soporte. El directorio incluye trainers con membresía activa."], ["¿Hay royalties sobre mis clases?", "No. Hay 0% de royalties sobre clases realizadas de forma independiente. Tú fijas el precio y conservas los ingresos de tu trabajo."], ["¿Qué ocurre si termina la membresía?", "Tu certificado permanece. Terminan el estatus Active Licensed Trainer, el perfil del directorio, el acceso a materiales actualizados y los beneficios de membresía; la marca y los materiales licenciados se rigen por el Trainer License Agreement."]], finalEyebrow: "AXS INTIMFLEX · CERTIFICACIÓN DE TRAINERS", finalTitle: <>Tu ciudad podría<br /><em>ser la siguiente.</em></>, finalCopy: "Aprende el método, certifícate y potencialmente lleva el entrenamiento AXS IntimFlex a mujeres de tu ciudad bajo las condiciones de certificación y licencia aplicables.", footer: "AXS IntimFlex Trainer Certification", language: "Idioma", close: "Cerrar menú", open: "Abrir menú"
   }
@@ -158,6 +159,143 @@ const certificationCopy = {
   },
 } as const;
 
+const ilonaCopy = {
+  EN: {
+    name: "ILONA CHERNOBAI",
+    role: "Founder of AXS INTIMFLEX",
+    paragraphs: [
+      "I am an Intim Flex trainer, a Master of Sport in artistic gymnastics, and I have worked with women, their bodies and movement for more than 10 years.",
+      "I created AXS INTIMFLEX to shape a new generation of healthy, beautiful, confident and sexual women.",
+      "Today, I pass my method on to other trainers and build an international AXS team.",
+      "I invite you to become part of it — master the method, start teaching, and carry this ideology with me.",
+    ],
+    open: "Open information about Ilona Chernobai",
+    close: "Close information about Ilona Chernobai",
+  },
+  RU: {
+    name: "ИЛОНА ЧЕРНОБАЙ",
+    role: "Основатель AXS INTIMFLEX",
+    paragraphs: [
+      "Я — тренер по Intim Flex, мастер спорта по спортивной гимнастике и более 10 лет работаю с женщинами, их телом и движением.",
+      "Я создала AXS INTIMFLEX, чтобы формировать новое поколение здоровых, красивых, уверенных и сексуальных женщин.",
+      "Сегодня я передаю свою методику другим тренерам и создаю международную команду AXS.",
+      "Я приглашаю тебя стать её частью — освоить методику, начать преподавать и нести эту идеологию вместе со мной.",
+    ],
+    open: "Открыть информацию об Илоне Чернобай",
+    close: "Закрыть информацию об Илоне Чернобай",
+  },
+  ES: {
+    name: "ILONA CHERNOBAI",
+    role: "Fundadora de AXS INTIMFLEX",
+    paragraphs: [
+      "Soy entrenadora de Intim Flex, maestra del deporte en gimnasia artística y llevo más de 10 años trabajando con mujeres, sus cuerpos y el movimiento.",
+      "Creé AXS INTIMFLEX para formar una nueva generación de mujeres sanas, bellas, seguras y sexuales.",
+      "Hoy transmito mi método a otras entrenadoras y creo un equipo internacional de AXS.",
+      "Te invito a formar parte de él: dominar el método, empezar a enseñar y llevar esta ideología conmigo.",
+    ],
+    open: "Abrir información sobre Ilona Chernobai",
+    close: "Cerrar información sobre Ilona Chernobai",
+  },
+} as const;
+
+type IlonaPhase = "closed" | "opening" | "open" | "closing";
+
+function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow: ReactNode; cohort: string; spotsLabel: string }) {
+  const [phase, setPhase] = useState<IlonaPhase>("closed");
+  const [motionStyle, setMotionStyle] = useState<CSSProperties>({});
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const copy = ilonaCopy[lang];
+  const expanded = phase !== "closed";
+
+  const openCard = () => {
+    if (expanded || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const targetWidth = Math.min(560, window.innerWidth - 48);
+    const targetHeight = Math.min(680, window.innerHeight - 48);
+    setMotionStyle({
+      "--ilona-from-x": `${rect.left + rect.width / 2 - window.innerWidth / 2}px`,
+      "--ilona-from-y": `${rect.top + rect.height / 2 - window.innerHeight / 2}px`,
+      "--ilona-from-scale-x": rect.width / targetWidth,
+      "--ilona-from-scale-y": rect.height / targetHeight,
+    } as CSSProperties);
+    setPhase("opening");
+  };
+
+  const closeCard = () => {
+    if (!expanded || phase === "closing") return;
+    setPhase("closing");
+  };
+
+  useEffect(() => {
+    if (phase === "opening") {
+      const timer = window.setTimeout(() => {
+        setPhase("open");
+        closeRef.current?.focus({ preventScroll: true });
+      }, 520);
+      return () => window.clearTimeout(timer);
+    }
+    if (phase === "closing") {
+      const timer = window.setTimeout(() => {
+        setPhase("closed");
+        setMotionStyle({});
+        triggerRef.current?.focus({ preventScroll: true });
+      }, 520);
+      return () => window.clearTimeout(timer);
+    }
+  }, [phase]);
+
+  useEffect(() => {
+    if (!expanded) return;
+    const previousOverflow = document.body.style.overflow;
+    const desktop = window.matchMedia("(min-width: 801px)").matches;
+    if (desktop) document.body.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPhase((current) => current === "closed" || current === "closing" ? current : "closing");
+      if (event.key === "Tab") {
+        event.preventDefault();
+        closeRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [expanded, phase]);
+
+  return <div className="ilona-card-slot">
+    {expanded && <button className={`ilona-backdrop ilona-backdrop--${phase}`} type="button" tabIndex={-1} aria-label={copy.close} onClick={closeCard} />}
+    <div
+      ref={cardRef}
+      className={`ilona-card ilona-card--${phase}`}
+      style={motionStyle}
+      role={expanded ? "dialog" : undefined}
+      aria-modal={expanded ? "true" : undefined}
+      aria-labelledby={expanded ? "ilona-card-title" : undefined}
+    >
+      <div className="ilona-card-inner">
+        <div className="ilona-card-face ilona-card-front">
+          <Image className="hero-visual-image" src={asset("/img/academy-hero-training-v20260906-new.jpg")} alt="Ilona Chernobai" fill sizes="(max-width: 800px) 100vw, 40vw" priority />
+          <div className="visual-caption"><span>{eyebrow}</span><b>{cohort} · {spotsLabel}</b></div>
+          <button ref={triggerRef} className="ilona-open" type="button" tabIndex={expanded ? -1 : 0} aria-label={copy.open} aria-expanded={expanded} onClick={openCard}>
+            <span>Ilona Chernobai ⓘ</span>
+          </button>
+        </div>
+        <div className="ilona-card-face ilona-card-back">
+          <button ref={closeRef} className="ilona-close" type="button" aria-label={copy.close} onClick={closeCard}><X aria-hidden="true" size={20} /></button>
+          <div className="ilona-card-copy">
+            <h2 id="ilona-card-title">{copy.name}</h2>
+            <h3>{copy.role}</h3>
+            {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
 function Logo() { return <a className="brand" href="#top" aria-label="AXS INTIMFLEX Academy"><Image src={asset("/img/axs-logo-original.png")} alt="AXS" width={635} height={415} priority /><span className="brand-name">IntimFlex</span></a>; }
 
 export default function Home() {
@@ -214,7 +352,7 @@ export default function Home() {
   useEffect(() => { document.documentElement.lang = lang.toLowerCase(); }, [lang]);
   return <main id="top">
     <header className="site-header"><Logo /><nav className="desktop-nav" aria-label="Main navigation">{t.nav.map((item, i) => <a href={`#${navIds[i]}`} key={item}>{item}</a>)}</nav><div className="header-actions"><div className="languages" role="group" aria-label={t.language}>{(["EN", "RU", "ES"] as Lang[]).map((item) => <button className={lang === item ? "selected" : ""} type="button" aria-pressed={lang === item} onClick={() => { setLang(item); setCertOpen(null); close(); }} key={item}>{item}</button>)}</div><a className="header-cta" href="#investment">{t.enroll}</a><button className="menu-button" type="button" aria-expanded={menuOpen} aria-label={menuOpen ? t.close : t.open} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={19} /> : <Menu size={19} />}</button></div>{menuOpen && <nav className="mobile-nav" aria-label="Mobile navigation">{t.nav.map((item, i) => <a onClick={close} href={`#${navIds[i]}`} key={item}>{item}</a>)}<a className="mobile-nav-cta" onClick={close} href="#investment">{t.enrollNow}</a></nav>}</header>
-    <section className="hero" aria-labelledby="hero-title"><video className="hero-video" autoPlay muted loop playsInline poster={asset("/img/hero-m.jpg")} aria-hidden="true"><source src={asset("/video/hero.mp4")} type="video/mp4" /></video><div className="hero-overlay" aria-hidden="true" /><div className="shell hero-grid"><div className="hero-copy"><p className="eyebrow pink">{t.heroEyebrow}</p><h1 id="hero-title">{t.heroTitle}</h1><p className="hero-lede">{t.heroLede}</p><div className="hero-meta"><span>{t.cohort}</span><span>{t.date}</span><span>{t.places}</span></div><div className="hero-actions"><a className="button button-primary" href="#investment">{t.enrollNow}</a><a className="button button-ghost" href="#investment">{t.reserveSpot}</a></div></div><div className="hero-visual"><Image className="hero-visual-image" src={asset("/img/academy-hero-training-v20260906-new.jpg")} alt="AXS INTIMFLEX training session" fill sizes="(max-width: 800px) 100vw, 40vw" /><div className="visual-caption"><span>{t.heroEyebrow}</span><b>{t.cohort} · {spotsLabel}</b></div></div></div><div className="shell hero-facts">{t.facts.map((fact, i) => <span key={fact} className={i === 3 ? "last-fact" : ""}>{fact}</span>).flatMap((node, i, all) => i < all.length - 1 ? [node, <i key={`arrow-${i}`}>→</i>] : [node])}</div></section>
+    <section className="hero" aria-labelledby="hero-title"><video className="hero-video" autoPlay muted loop playsInline poster={asset("/img/hero-m.jpg")} aria-hidden="true"><source src={asset("/video/hero.mp4")} type="video/mp4" /></video><div className="hero-overlay" aria-hidden="true" /><div className="shell hero-grid"><div className="hero-copy"><p className="eyebrow pink">{t.heroEyebrow}</p><h1 id="hero-title">{t.heroTitle}</h1><p className="hero-lede">{t.heroLede}</p><div className="hero-meta"><span>{t.cohort}</span><span>{t.date}</span><span>{t.places}</span></div><div className="hero-actions"><a className="button button-primary" href="#investment">{t.enrollNow}</a><a className="button button-ghost" href="#investment">{t.reserveSpot}</a></div></div><IlonaCard lang={lang} eyebrow={t.heroEyebrow} cohort={t.cohort} spotsLabel={spotsLabel} /></div><div className="shell hero-facts">{t.facts.map((fact, i) => <span key={fact} className={i === 3 ? "last-fact" : ""}>{fact}</span>).flatMap((node, i, all) => i < all.length - 1 ? [node, <i key={`arrow-${i}`}>→</i>] : [node])}</div></section>
     <section className="brand-strip" aria-label="Academy path">
       <div className="brand-strip-viewport">
         <div className="brand-strip-track">
