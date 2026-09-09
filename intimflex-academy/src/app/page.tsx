@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
 import CourseLanguageModal from "./CourseLanguageModal";
 
 type Lang = "EN" | "RU" | "ES";
-const basePath = "/intimflex-academy-review";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const asset = (path: string) => `${basePath}${path}`;
 
 function normalizeCopy(value: unknown, lang: Lang): unknown {
