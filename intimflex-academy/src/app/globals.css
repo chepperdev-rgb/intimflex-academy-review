@@ -77,7 +77,9 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .ilona-card-front::before { position: absolute; z-index: 1; inset: 10px; border: 1px solid rgb(247 244 250 / .2); border-radius: 10px; content: ""; pointer-events: none; }
 .ilona-card-front::after { position: absolute; z-index: 1; inset: 0; content: ""; pointer-events: none; }
 .ilona-open { position: absolute; z-index: 3; inset: 0; border: 0; background: transparent; color: var(--petal); cursor: pointer; }
-.ilona-open > span { position: absolute; bottom: 18px; left: 50%; width: max-content; max-width: calc(100% - 44px); padding: 7px 13px; border: 1px solid rgb(255 155 203 / .58); border-radius: 999px; background: rgb(19 10 25 / .22); box-shadow: 0 0 13px rgb(240 80 159 / .27), inset 0 0 10px rgb(255 255 255 / .025); color: #fff; font-size: 10px; font-weight: 600; letter-spacing: .035em; line-height: 1; text-shadow: 0 1px 5px rgb(0 0 0 / .72); transform: translateX(-50%); animation: ilona-label-pulse 3s ease-in-out infinite; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.ilona-open > span, .ilona-flip-label { width: 119px; min-height: 32px; padding: 9px 13px; border: 1px solid rgb(255 155 203 / .58); border-radius: 999px; background: rgb(19 10 25 / .22); box-shadow: 0 0 13px rgb(240 80 159 / .27), inset 0 0 10px rgb(255 255 255 / .025); color: #fff; font-size: 10px; font-weight: 600; letter-spacing: .035em; line-height: 1; text-align: center; text-shadow: 0 1px 5px rgb(0 0 0 / .72); animation: ilona-label-pulse 3s ease-in-out infinite; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
+.ilona-open > span { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); }
+.ilona-flip-label { position: absolute; z-index: 4; bottom: 18px; left: 50%; cursor: pointer; transform: translateX(-50%) rotateY(0deg); }
 @keyframes ilona-label-pulse {
   0%, 100% { box-shadow: 0 0 10px rgb(240 80 159 / .22), inset 0 0 10px rgb(255 255 255 / .025); }
   50% { box-shadow: 0 0 22px rgb(240 80 159 / .58), 0 0 7px rgb(255 204 230 / .24), inset 0 0 10px rgb(255 255 255 / .025); }
@@ -634,7 +636,8 @@ html[lang="ru"] .hero h1 { line-height: .94; }
   .ilona-close { top: 9px; right: 9px; width: 30px; height: 30px; }
 }
 @media (max-width: 600px) {
-  .ilona-open > span { bottom: 13px; padding: 6px 11px; font-size: 9px; }
+  .ilona-open > span, .ilona-flip-label { width: 106px; min-height: 29px; padding: 8px 11px; font-size: 9px; }
+  .ilona-open > span, .ilona-flip-label { bottom: 13px; }
   .ilona-card-back { padding: 25px 18px 14px; }
   .ilona-card-copy h2 { padding-right: 26px; font-size: clamp(21px, 6.8vw, 27px); line-height: .88; }
   .ilona-card-copy h3 { margin: 5px 0 9px; font-size: 7px; line-height: 1.15; }

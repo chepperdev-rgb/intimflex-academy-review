@@ -211,6 +211,7 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
   const slotRef = useRef<HTMLDivElement>(null);
   const scrollPositionRef = useRef(0);
   const restoreFocusRef = useRef(false);
+  const backTapRef = useRef({ x: 0, y: 0, scrollY: 0, moved: false });
   const copy = ilonaCopy[lang];
   const expanded = phase !== "closed";
 
@@ -244,6 +245,24 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
       } as CSSProperties);
     }
     setPhase("closing");
+  };
+
+  const beginBackTap = (event: React.PointerEvent<HTMLDivElement>) => {
+    backTapRef.current = { x: event.clientX, y: event.clientY, scrollY: window.scrollY, moved: false };
+  };
+
+  const trackBackTap = (event: React.PointerEvent<HTMLDivElement>) => {
+    const tap = backTapRef.current;
+    if (Math.hypot(event.clientX - tap.x, event.clientY - tap.y) > 10 || Math.abs(window.scrollY - tap.scrollY) > 6) {
+      tap.moved = true;
+    }
+  };
+
+  const closeFromMobileCard = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!window.matchMedia("(max-width: 800px)").matches || phase !== "open" || backTapRef.current.moved) return;
+    if ((event.target as HTMLElement).closest("button, a, input, textarea, select, summary, [data-no-card-flip]")) return;
+    if (window.getSelection()?.toString()) return;
+    closeCard();
   };
 
   useEffect(() => {
@@ -306,16 +325,17 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
           <Image className="hero-visual-image" src={asset("/img/academy-hero-training-v20260906-new.jpg")} alt="Ilona Chernobai" fill sizes="(max-width: 800px) 100vw, 40vw" priority />
           <div className="visual-caption"><span>{eyebrow}</span><b>{cohort} · {spotsLabel}</b></div>
           <button ref={triggerRef} className="ilona-open" type="button" tabIndex={expanded ? -1 : 0} aria-label={copy.open} aria-expanded={expanded} onClick={openCard}>
-            <span>Ilona Chernobai ⓘ</span>
+            <span>Tap here</span>
           </button>
         </div>
-        <div className="ilona-card-face ilona-card-back">
+        <div className="ilona-card-face ilona-card-back" onPointerDown={beginBackTap} onPointerMove={trackBackTap} onClick={closeFromMobileCard}>
           <button ref={closeRef} className="ilona-close" type="button" aria-label={copy.close} onClick={closeCard}><X aria-hidden="true" size={20} /></button>
           <div className="ilona-card-copy">
             <h2 id="ilona-card-title">{copy.name}</h2>
             <h3>{copy.role}</h3>
             {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
+          <button className="ilona-flip-label" type="button" onClick={closeCard}>{"Tap here"}</button>
         </div>
       </div>
     </div>
