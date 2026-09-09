@@ -182,6 +182,7 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .final-cta { position: relative; min-height: 570px; overflow: clip; padding: 85px 0; background: var(--rosewood); color: var(--vin-noir); isolation: isolate; }
 .final-cta-visual { position: absolute; z-index: -3; inset: 0 0 0 27%; }
 .final-cta-visual img { object-fit: cover; object-position: 68% center; filter: saturate(.78) contrast(.9); }
+.final-cta-photo-mobile { display: none; }
 .final-cta-tint { position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg, var(--rosewood) 0%, var(--rosewood) 27%, color-mix(in srgb, var(--rosewood) 92%, transparent) 38%, color-mix(in srgb, var(--rosewood) 42%, transparent) 62%, color-mix(in srgb, var(--rosewood) 18%, transparent) 100%), linear-gradient(0deg, color-mix(in srgb, var(--rosewood) 36%, transparent), color-mix(in srgb, var(--rosewood) 16%, transparent)); pointer-events: none; }
 .final-cta-content { position: relative; z-index: 1; }
 .final-cta .eyebrow { color: var(--vin-noir); }
@@ -260,8 +261,9 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
   .final-actions .button { width: 100%; }
   .final-cta { min-height: 0; padding: 72px 0; }
   .final-cta-visual { inset: 0; height: auto; }
-  .final-cta-visual img { object-position: 71% center; filter: saturate(.9) contrast(.96); }
-  .final-cta-tint { background: linear-gradient(90deg, color-mix(in srgb, var(--rosewood) 58%, transparent) 0%, color-mix(in srgb, var(--rosewood) 34%, transparent) 56%, color-mix(in srgb, var(--rosewood) 16%, transparent) 100%), linear-gradient(180deg, color-mix(in srgb, var(--rosewood) 18%, transparent) 0%, color-mix(in srgb, var(--rosewood) 28%, transparent) 100%); }
+  .final-cta-photo-desktop { display: none; }
+  .final-cta-photo-mobile { display: block; object-position: 66% center !important; filter: saturate(.76) contrast(.92) !important; }
+  .final-cta-tint { background: linear-gradient(90deg, color-mix(in srgb, var(--rosewood) 91%, transparent) 0%, color-mix(in srgb, var(--rosewood) 74%, transparent) 56%, color-mix(in srgb, var(--rosewood) 48%, transparent) 100%), linear-gradient(180deg, color-mix(in srgb, var(--rosewood) 42%, transparent) 0%, color-mix(in srgb, var(--rosewood) 58%, transparent) 100%); }
 }
 
 /* Localized copy needs room to breathe without changing the AXS scale. */
