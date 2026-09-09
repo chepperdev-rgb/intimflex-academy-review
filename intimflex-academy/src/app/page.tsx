@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Check, Menu, X } from "lucide-react";
 import { cloneElement, isValidElement, useEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactElement, ReactNode } from "react";
+import { createPortal } from "react-dom";
 import CourseLanguageModal from "./CourseLanguageModal";
 
 type Lang = "EN" | "RU" | "ES";
@@ -203,15 +204,21 @@ type IlonaPhase = "closed" | "opening" | "open" | "closing";
 function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow: ReactNode; cohort: string; spotsLabel: string }) {
   const [phase, setPhase] = useState<IlonaPhase>("closed");
   const [motionStyle, setMotionStyle] = useState<CSSProperties>({});
+  const [desktopMode, setDesktopMode] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const slotRef = useRef<HTMLDivElement>(null);
+  const scrollPositionRef = useRef(0);
+  const restoreFocusRef = useRef(false);
   const copy = ilonaCopy[lang];
   const expanded = phase !== "closed";
 
   const openCard = () => {
-    if (expanded || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
+    if (expanded || !slotRef.current) return;
+    const rect = slotRef.current.getBoundingClientRect();
+    scrollPositionRef.current = window.scrollY;
+    setDesktopMode(window.matchMedia("(min-width: 801px)").matches);
     const targetWidth = Math.min(560, window.innerWidth - 48);
     const targetHeight = Math.min(680, window.innerHeight - 48);
     setMotionStyle({
@@ -225,6 +232,17 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
 
   const closeCard = () => {
     if (!expanded || phase === "closing") return;
+    if (desktopMode && slotRef.current) {
+      const rect = slotRef.current.getBoundingClientRect();
+      const targetWidth = Math.min(560, window.innerWidth - 48);
+      const targetHeight = Math.min(680, window.innerHeight - 48);
+      setMotionStyle({
+        "--ilona-from-x": `${rect.left + rect.width / 2 - window.innerWidth / 2}px`,
+        "--ilona-from-y": `${rect.top + rect.height / 2 - window.innerHeight / 2}px`,
+        "--ilona-from-scale-x": rect.width / targetWidth,
+        "--ilona-from-scale-y": rect.height / targetHeight,
+      } as CSSProperties);
+    }
     setPhase("closing");
   };
 
@@ -238,12 +256,20 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
     }
     if (phase === "closing") {
       const timer = window.setTimeout(() => {
+        restoreFocusRef.current = true;
         setPhase("closed");
         setMotionStyle({});
-        triggerRef.current?.focus({ preventScroll: true });
+        setDesktopMode(false);
+        window.scrollTo({ top: scrollPositionRef.current, behavior: "auto" });
       }, 520);
       return () => window.clearTimeout(timer);
     }
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== "closed" || !restoreFocusRef.current) return;
+    restoreFocusRef.current = false;
+    triggerRef.current?.focus({ preventScroll: true });
   }, [phase]);
 
   useEffect(() => {
@@ -265,7 +291,7 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
     };
   }, [expanded, phase]);
 
-  return <div className="ilona-card-slot">
+  const card = <>
     {expanded && <button className={`ilona-backdrop ilona-backdrop--${phase}`} type="button" tabIndex={-1} aria-label={copy.close} onClick={closeCard} />}
     <div
       ref={cardRef}
@@ -293,6 +319,10 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
         </div>
       </div>
     </div>
+  </>;
+
+  return <div ref={slotRef} className={`hero-visual ilona-card-slot${expanded ? " ilona-card-slot--expanded" : ""}`}>
+    {expanded && desktopMode ? createPortal(card, document.body) : card}
   </div>;
 }
 

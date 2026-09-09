@@ -63,8 +63,9 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
   0%, 100% { transform: translateY(0); box-shadow: 0 0 0 1px rgb(240 80 159 / .1), 0 0 70px rgb(240 80 159 / .12), 0 22px 60px -22px rgb(240 80 159 / .35); }
   50% { transform: translateY(-4px); box-shadow: 0 0 0 1px rgb(240 80 159 / .1), 0 0 70px rgb(240 80 159 / .12), 0 28px 95px -18px rgb(240 80 159 / .72); }
 }
-.ilona-card-slot { position: relative; min-height: 330px; border: 1px solid rgb(255 155 203 / .45); border-radius: var(--radius-card); background: linear-gradient(145deg, rgb(43 18 64 / .18), rgb(11 7 16 / .78)); box-shadow: 0 0 0 1px rgb(240 80 159 / .1), 0 0 70px rgb(240 80 159 / .12), 0 22px 60px -22px rgb(240 80 159 / .35); animation: academy-hero-card-glow 3.4s ease-in-out infinite; }
-.ilona-card-slot:has(.ilona-card:not(.ilona-card--closed)) { border-color: transparent; background: transparent; box-shadow: none; animation: none; }
+.ilona-card-slot { will-change: transform, box-shadow; }
+.ilona-card-slot::before, .ilona-card-slot::after { pointer-events: none; }
+@media (min-width: 801px) { .ilona-card-slot--expanded { opacity: 0; } }
 .ilona-card { position: absolute; z-index: 1; inset: 0; perspective: 1400px; }
 .ilona-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .52s cubic-bezier(.22, .8, .22, 1); }
 .ilona-card--opening .ilona-card-inner, .ilona-card--open .ilona-card-inner { transform: rotateY(180deg); }
@@ -606,7 +607,6 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 
 /* Ilona profile card: mobile turns in place and keeps the original hero footprint. */
 @media (max-width: 800px) {
-  .ilona-card-slot { width: 100%; min-height: 250px; max-width: 390px; }
   .ilona-backdrop { display: none; }
   .ilona-card--opening, .ilona-card--open, .ilona-card--closing { position: absolute; z-index: 1; inset: 0; width: auto; height: auto; animation: none; transform: none; }
   .ilona-card-back { padding: 32px 28px 24px; }
@@ -616,7 +616,6 @@ html[lang="ru"] .hero h1 { line-height: .94; }
   .ilona-close { top: 9px; right: 9px; width: 30px; height: 30px; }
 }
 @media (max-width: 600px) {
-  .ilona-card-slot { min-height: 210px; }
   .ilona-open > span { bottom: 13px; padding: 6px 11px; font-size: 9px; }
   .ilona-card-back { padding: 25px 18px 14px; }
   .ilona-card-copy h2 { padding-right: 26px; font-size: clamp(21px, 6.8vw, 27px); line-height: .88; }
