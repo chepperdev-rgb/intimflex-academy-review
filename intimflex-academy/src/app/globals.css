@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V4 */
 /* Hallmark · genre: atmospheric · macrostructure: Marquee Hero + Compact Sales Flow · design-source: Go AXS */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -178,7 +179,11 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .faq-answer p + p { margin-top: 12px; }
 .faq-payment-link { display: inline-block; margin-top: 12px; color: var(--rose-gold); text-decoration: underline; text-decoration-color: rgb(239 169 185 / .55); text-underline-offset: 4px; transition: color var(--dur-fast) ease, text-decoration-color var(--dur-fast) ease; }
 .faq-payment-link:hover, .faq-payment-link:focus-visible { color: var(--petal); text-decoration-color: currentColor; }
-.final-cta { padding: 85px 0; background: var(--rosewood); color: var(--vin-noir); }
+.final-cta { position: relative; min-height: 570px; overflow: clip; padding: 85px 0; background: var(--rosewood); color: var(--vin-noir); isolation: isolate; }
+.final-cta-visual { position: absolute; z-index: -3; inset: 0 0 0 34%; }
+.final-cta-visual img { object-fit: cover; object-position: 68% center; filter: saturate(.78) contrast(.9); }
+.final-cta-tint { position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg, var(--rosewood) 0%, var(--rosewood) 34%, color-mix(in srgb, var(--rosewood) 94%, transparent) 46%, color-mix(in srgb, var(--rosewood) 45%, transparent) 69%, color-mix(in srgb, var(--rosewood) 18%, transparent) 100%), linear-gradient(0deg, color-mix(in srgb, var(--rosewood) 36%, transparent), color-mix(in srgb, var(--rosewood) 16%, transparent)); pointer-events: none; }
+.final-cta-content { position: relative; z-index: 1; }
 .final-cta .eyebrow { color: var(--vin-noir); }
 .final-cta h2 { font-size: clamp(3.4rem, 8vw, 7rem); letter-spacing: -.035em; line-height: .84; }
 .final-cta h2 em { color: var(--petal); }
@@ -253,6 +258,10 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
   .path { gap: 7px 10px; font-size: 8px; }
   .final-actions { flex-direction: column; width: min(100%, 320px); }
   .final-actions .button { width: 100%; }
+  .final-cta { min-height: 930px; padding: 64px 0 470px; }
+  .final-cta-visual { inset: auto 0 0; height: 470px; }
+  .final-cta-visual img { object-position: 68% center; filter: saturate(.76) contrast(.92); }
+  .final-cta-tint { background: linear-gradient(180deg, var(--rosewood) 0%, var(--rosewood) 52%, color-mix(in srgb, var(--rosewood) 84%, transparent) 57%, color-mix(in srgb, var(--rosewood) 26%, transparent) 66%, color-mix(in srgb, var(--rosewood) 12%, transparent) 100%), linear-gradient(90deg, color-mix(in srgb, var(--rosewood) 26%, transparent), color-mix(in srgb, var(--rosewood) 6%, transparent)); }
 }
 
 /* Localized copy needs room to breathe without changing the AXS scale. */
