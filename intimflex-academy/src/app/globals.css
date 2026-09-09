@@ -261,7 +261,7 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
   .final-cta { min-height: 0; padding: 72px 0; }
   .final-cta-visual { inset: 0; height: auto; }
   .final-cta-visual img { object-position: 66% center; filter: saturate(.76) contrast(.92); }
-  .final-cta-tint { background: linear-gradient(90deg, color-mix(in srgb, var(--rosewood) 94%, transparent) 0%, color-mix(in srgb, var(--rosewood) 86%, transparent) 56%, color-mix(in srgb, var(--rosewood) 70%, transparent) 100%), linear-gradient(180deg, color-mix(in srgb, var(--rosewood) 62%, transparent) 0%, color-mix(in srgb, var(--rosewood) 78%, transparent) 100%); }
+  .final-cta-tint { background: linear-gradient(90deg, color-mix(in srgb, var(--rosewood) 91%, transparent) 0%, color-mix(in srgb, var(--rosewood) 74%, transparent) 56%, color-mix(in srgb, var(--rosewood) 48%, transparent) 100%), linear-gradient(180deg, color-mix(in srgb, var(--rosewood) 42%, transparent) 0%, color-mix(in srgb, var(--rosewood) 58%, transparent) 100%); }
 }
 
 /* Localized copy needs room to breathe without changing the AXS scale. */
