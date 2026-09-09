@@ -586,7 +586,8 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 .certification-heading h2 { max-width: 900px; margin: 0; font-size: clamp(3.2rem, 6.2vw, 6.2rem); line-height: .88; letter-spacing: -.03em; text-wrap: balance; }
 .certification-heading h2 em { color: var(--rose-gold); font-style: normal; }
 .certification-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(34px, 7vw, 100px); align-items: start; }
-.certification-card { min-width: 0; padding: clamp(28px, 3.3vw, 44px); border: 1px solid rgb(255 155 203 / .35); border-radius: 15px; background: rgb(11 7 16 / .26); }
+.certification-card { min-width: 0; padding: clamp(28px, 3.3vw, 44px); border: 1px solid rgb(255 155 203 / .35); border-radius: 15px; background: rgb(11 7 16 / .26); animation: academy-hero-card-glow 3.4s ease-in-out infinite; will-change: transform, box-shadow; }
+.certification-card:hover, .certification-card:focus-within { animation-play-state: paused; }
 .certification-card h3 { max-width: 380px; margin: 14px 0 18px; font-family: var(--font-display); font-size: clamp(3rem, 5.6vw, 5.2rem); font-weight: 400; line-height: .82; letter-spacing: -.035em; }
 .certification-description { max-width: 470px; margin: 0; color: var(--petal-dim); font-size: 14px; line-height: 1.55; }
 .certification-accordion { margin-top: 38px; }
@@ -617,6 +618,7 @@ html[lang="ru"] .hero h1 { line-height: .94; }
   .certificate-visual > p { margin-top: 38px; font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .certification-card { animation: none; box-shadow: 0 0 0 1px rgb(240 80 159 / .1), 0 0 70px rgb(240 80 159 / .12), 0 22px 60px -22px rgb(240 80 159 / .35); }
   .certificate-shell { animation: none; box-shadow: 0 18px 48px -28px rgb(240 80 159 / .86); }
   .certification-panel { transition: none; }
 }
