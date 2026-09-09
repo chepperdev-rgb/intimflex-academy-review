@@ -70,7 +70,7 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .ilona-card { position: absolute; z-index: 1; inset: 0; perspective: 1400px; }
 .ilona-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .52s cubic-bezier(.22, .8, .22, 1); }
 .ilona-card--opening .ilona-card-inner, .ilona-card--open .ilona-card-inner { transform: rotateY(180deg); }
-.ilona-card--opening .ilona-card-front, .ilona-card--open .ilona-card-front { pointer-events: none; }
+.ilona-card--preparing .ilona-card-front, .ilona-card--opening .ilona-card-front, .ilona-card--open .ilona-card-front { pointer-events: none; }
 .ilona-card--closed .ilona-card-back, .ilona-card--closing .ilona-card-back { pointer-events: none; }
 .ilona-card-face { position: absolute; inset: 0; overflow: hidden; border: 1px solid rgb(255 155 203 / .45); border-radius: var(--radius-card); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .ilona-card-front { display: flex; align-items: flex-end; justify-content: space-between; padding: 20px; background: linear-gradient(145deg, rgb(43 18 64 / .18), rgb(11 7 16 / .78)); }
@@ -78,8 +78,8 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .ilona-card-front::after { position: absolute; z-index: 1; inset: 0; content: ""; pointer-events: none; }
 .ilona-open { position: absolute; z-index: 3; inset: 0; border: 0; background: transparent; color: var(--petal); cursor: pointer; }
 .ilona-open > span, .ilona-flip-label { width: 119px; min-height: 32px; padding: 9px 13px; border: 1px solid rgb(255 155 203 / .58); border-radius: 999px; background: rgb(19 10 25 / .22); box-shadow: 0 0 13px rgb(240 80 159 / .27), inset 0 0 10px rgb(255 255 255 / .025); color: #fff; font-size: 10px; font-weight: 600; letter-spacing: .035em; line-height: 1; text-align: center; text-shadow: 0 1px 5px rgb(0 0 0 / .72); animation: ilona-label-pulse 3s ease-in-out infinite; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
-.ilona-open > span { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); }
-.ilona-flip-label { position: absolute; z-index: 4; bottom: 18px; left: 50%; cursor: pointer; transform: translateX(-50%) rotateY(0deg); }
+.ilona-open > span { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%) translateZ(1px); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.ilona-flip-label { position: absolute; z-index: 4; bottom: 18px; left: 50%; direction: ltr; cursor: pointer; transform: translateX(-50%) translateZ(1px); backface-visibility: hidden; -webkit-backface-visibility: hidden; unicode-bidi: isolate; }
 @keyframes ilona-label-pulse {
   0%, 100% { box-shadow: 0 0 10px rgb(240 80 159 / .22), inset 0 0 10px rgb(255 255 255 / .025); }
   50% { box-shadow: 0 0 22px rgb(240 80 159 / .58), 0 0 7px rgb(255 204 230 / .24), inset 0 0 10px rgb(255 255 255 / .025); }
@@ -94,7 +94,8 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .ilona-close:hover { border-color: var(--rose-gold); background: rgb(240 80 159 / .13); transform: rotate(4deg); }
 .ilona-backdrop { position: fixed; z-index: 99; inset: 0; border: 0; background: rgb(5 3 8 / .78); cursor: pointer; animation: ilona-backdrop-in .52s ease both; backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); }
 @keyframes ilona-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
-.ilona-card--opening, .ilona-card--open, .ilona-card--closing { position: fixed; z-index: 100; inset: auto; top: 50%; left: 50%; width: min(560px, calc(100vw - 48px)); height: min(680px, calc(100vh - 48px)); }
+.ilona-card--preparing, .ilona-card--opening, .ilona-card--open, .ilona-card--closing { position: fixed; z-index: 100; inset: auto; top: 50%; left: 50%; width: min(560px, calc(100vw - 48px)); height: min(680px, calc(100vh - 48px)); }
+.ilona-card--preparing { transform: translate(-50%, -50%) translate(var(--ilona-from-x), var(--ilona-from-y)) scale(var(--ilona-from-scale-x), var(--ilona-from-scale-y)); }
 .ilona-card--opening { animation: ilona-card-expand .52s cubic-bezier(.22, .8, .22, 1) both; }
 .ilona-card--open { transform: translate(-50%, -50%); }
 .ilona-card--closing { animation: ilona-card-collapse .52s cubic-bezier(.22, .8, .22, 1) both; }
@@ -628,7 +629,7 @@ html[lang="ru"] .hero h1 { line-height: .94; }
 /* Ilona profile card: mobile turns in place and keeps the original hero footprint. */
 @media (max-width: 800px) {
   .ilona-backdrop { display: none; }
-  .ilona-card--opening, .ilona-card--open, .ilona-card--closing { position: absolute; z-index: 1; inset: 0; width: auto; height: auto; animation: none; transform: none; }
+  .ilona-card--preparing, .ilona-card--opening, .ilona-card--open, .ilona-card--closing { position: absolute; z-index: 1; inset: 0; width: auto; height: auto; animation: none; transform: none; }
   .ilona-card-back { padding: 32px 28px 24px; }
   .ilona-card-copy h2 { font-size: 31px; }
   .ilona-card-copy h3 { margin: 7px 0 13px; font-size: 8px; }

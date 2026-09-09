@@ -172,6 +172,7 @@ const ilonaCopy = {
     ],
     open: "Open information about Ilona Chernobai",
     close: "Close information about Ilona Chernobai",
+    tap: "Tap here",
   },
   RU: {
     name: "ИЛОНА ЧЕРНОБАЙ",
@@ -184,6 +185,7 @@ const ilonaCopy = {
     ],
     open: "Открыть информацию об Илоне Чернобай",
     close: "Закрыть информацию об Илоне Чернобай",
+    tap: "Жми сюда",
   },
   ES: {
     name: "ILONA CHERNOBAI",
@@ -196,10 +198,11 @@ const ilonaCopy = {
     ],
     open: "Abrir información sobre Ilona Chernobai",
     close: "Cerrar información sobre Ilona Chernobai",
+    tap: "Toca aquí",
   },
 } as const;
 
-type IlonaPhase = "closed" | "opening" | "open" | "closing";
+type IlonaPhase = "closed" | "preparing" | "opening" | "open" | "closing";
 
 function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow: ReactNode; cohort: string; spotsLabel: string }) {
   const [phase, setPhase] = useState<IlonaPhase>("closed");
@@ -228,7 +231,7 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
       "--ilona-from-scale-x": rect.width / targetWidth,
       "--ilona-from-scale-y": rect.height / targetHeight,
     } as CSSProperties);
-    setPhase("opening");
+    setPhase("preparing");
   };
 
   const closeCard = () => {
@@ -266,6 +269,16 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
   };
 
   useEffect(() => {
+    if (phase === "preparing") {
+      let secondFrame = 0;
+      const firstFrame = window.requestAnimationFrame(() => {
+        secondFrame = window.requestAnimationFrame(() => setPhase("opening"));
+      });
+      return () => {
+        window.cancelAnimationFrame(firstFrame);
+        if (secondFrame) window.cancelAnimationFrame(secondFrame);
+      };
+    }
     if (phase === "opening") {
       const timer = window.setTimeout(() => {
         setPhase("open");
@@ -325,7 +338,7 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
           <Image className="hero-visual-image" src={asset("/img/academy-hero-training-v20260906-new.jpg")} alt="Ilona Chernobai" fill sizes="(max-width: 800px) 100vw, 40vw" priority />
           <div className="visual-caption"><span>{eyebrow}</span><b>{cohort} · {spotsLabel}</b></div>
           <button ref={triggerRef} className="ilona-open" type="button" tabIndex={expanded ? -1 : 0} aria-label={copy.open} aria-expanded={expanded} onClick={openCard}>
-            <span>Tap here</span>
+            <span>{copy.tap}</span>
           </button>
         </div>
         <div className="ilona-card-face ilona-card-back" onPointerDown={beginBackTap} onPointerMove={trackBackTap} onClick={closeFromMobileCard}>
@@ -335,7 +348,7 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
             <h3>{copy.role}</h3>
             {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
-          <button className="ilona-flip-label" type="button" onClick={closeCard}>{"Tap here"}</button>
+          <button className="ilona-flip-label" type="button" onClick={closeCard}>{copy.tap}</button>
         </div>
       </div>
     </div>
