@@ -173,7 +173,11 @@ h1 em, h2 em, h3 em { color: var(--rose-gold); font-style: normal; }
 .faq { display: grid; grid-template-columns: minmax(0, .55fr) minmax(0, 1fr); gap: 12%; margin-top: 95px; padding-top: 32px; border-top: 1px solid var(--petal-muted); }
 .faq h3 { font-size: clamp(2.9rem, 5vw, 4.8rem); line-height: .85; }
 .faq .accordion summary { color: var(--petal); font-family: var(--font-display); font-size: 21px; line-height: 1.05; }
-.faq .accordion > p { max-width: 600px; margin: 0; padding: 0 30px 17px 0; color: var(--petal-dim); font-size: 13px; line-height: 1.55; }
+.faq-answer { max-width: 600px; padding: 0 30px 17px 0; color: var(--petal-dim); font-size: 13px; line-height: 1.55; }
+.faq-answer p { margin: 0; }
+.faq-answer p + p { margin-top: 12px; }
+.faq-payment-link { display: inline-block; margin-top: 12px; color: var(--rose-gold); text-decoration: underline; text-decoration-color: rgb(239 169 185 / .55); text-underline-offset: 4px; transition: color var(--dur-fast) ease, text-decoration-color var(--dur-fast) ease; }
+.faq-payment-link:hover, .faq-payment-link:focus-visible { color: var(--petal); text-decoration-color: currentColor; }
 .final-cta { padding: 85px 0; background: var(--rosewood); color: var(--vin-noir); }
 .final-cta .eyebrow { color: var(--vin-noir); }
 .final-cta h2 { font-size: clamp(3.4rem, 8vw, 7rem); letter-spacing: -.035em; line-height: .84; }
