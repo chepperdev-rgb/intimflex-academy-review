@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Menu, X } from "lucide-react";
+import { Check, MessageCircle, Menu, Send, X } from "lucide-react";
 import { cloneElement, isValidElement, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { CSSProperties, ReactElement, ReactNode } from "react";
 import { createPortal } from "react-dom";
@@ -19,6 +19,77 @@ const subscribeToLanguage = (notify: () => void) => {
 };
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const asset = (path: string) => `${basePath}${path}`;
+
+const questionCopy = {
+  EN: { trigger: "Ask a question", eyebrow: "AXS INTIMFLEX ACADEMY", title: "Got a Question?", intro: "Leave your question and the email where it's convenient to get a reply", name: "Your name", email: "Email", question: "Your question", send: "Send question", sending: "Sending…", success: "Thanks! I'll get back to you soon", reset: "Reset", error: "Couldn’t send your question. Please try again.", note: "We usually reply by email within one business day.", close: "Close form" },
+  RU: { trigger: "Задать вопрос", eyebrow: "AXS INTIMFLEX ACADEMY", title: "Есть вопрос?", intro: "Оставь вопрос и email, на который удобно получить ответ", name: "Твоё имя", email: "Email", question: "Твой вопрос", send: "Отправить вопрос", sending: "Отправляю…", success: "Спасибо! Я отвечу тебе в ближайшее время", reset: "Сбросить", error: "Не получилось отправить вопрос. Попробуй ещё раз.", note: "Обычно я отвечаю на почту в течение одного рабочего дня.", close: "Закрыть форму" },
+  ES: { trigger: "Hacer una pregunta", eyebrow: "AXS INTIMFLEX ACADEMY", title: "¿Tienes alguna pregunta?", intro: "Deja tu pregunta y el email donde te resulte más cómodo recibir la respuesta", name: "Tu nombre", email: "Email", question: "Tu pregunta", send: "Enviar pregunta", sending: "Enviando…", success: "¡Gracias! Te responderé muy pronto", reset: "Restablecer", error: "No pude enviar tu pregunta. Inténtalo de nuevo.", note: "Normalmente respondo por email en un día laborable.", close: "Cerrar formulario" },
+};
+
+type QuestionSubmitState = "idle" | "loading" | "success" | "error";
+
+function QuestionWidget({ lang }: { lang: Lang }) {
+  const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [submitState, setSubmitState] = useState<QuestionSubmitState>("idle");
+  const copy = questionCopy[lang];
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setVisible(true), 12000);
+    const revealOnScroll = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable > 0 && window.scrollY / scrollable >= .35) setVisible(true);
+    };
+    window.addEventListener("scroll", revealOnScroll, { passive: true });
+    return () => { window.clearTimeout(timer); window.removeEventListener("scroll", revealOnScroll); };
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
+
+  const submitQuestion = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (submitState === "loading") return;
+    setSubmitState("loading");
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    data.set("page", window.location.href);
+    data.set("language", lang);
+    try {
+      const response = await fetch("https://formspree.io/f/mjyvjjlq", { method: "POST", body: data, headers: { Accept: "application/json" } });
+      if (!response.ok) throw new Error(`Formspree returned ${response.status}`);
+      form.reset();
+      setSubmitState("success");
+    } catch {
+      setSubmitState("error");
+    }
+  };
+
+  if (!visible) return null;
+  return <div className={`question-widget${open ? " is-open" : ""}`}>
+    {open && <button className="question-widget-scrim" type="button" aria-label={copy.close} onClick={() => setOpen(false)} />}
+    {open && <section className="question-panel" role="dialog" aria-modal="true" aria-labelledby="question-title">
+      <button className="question-close" type="button" aria-label={copy.close} onClick={() => setOpen(false)}><X size={18} /></button>
+      <p className="question-eyebrow">{copy.eyebrow}</p>
+      <h2 id="question-title">{copy.title}</h2>
+      <p className="question-intro">{copy.intro}</p>
+      {submitState === "success" ? <div className="question-success" role="status" aria-live="polite"><p>{copy.success}</p><button className="question-reset" type="button" onClick={() => setSubmitState("idle")}>{copy.reset}</button></div> : <form action="https://formspree.io/f/mjyvjjlq" method="POST" onSubmit={submitQuestion}>
+        <input type="hidden" name="page" value="" />
+        <input type="hidden" name="language" value={lang} />
+        <label><span>{copy.name}</span><input name="name" autoComplete="name" placeholder={copy.name} required /></label>
+        <label><span>{copy.email}</span><input name="_replyto" type="email" autoComplete="email" placeholder="name@email.com" required /></label>
+        <label><span>{copy.question}</span><textarea name="message" rows={3} placeholder={copy.question} required /></label>
+        <button className="question-submit" type="submit" disabled={submitState === "loading"} data-state={submitState}>{submitState === "loading" ? copy.sending : copy.send}<Send size={15} /></button>
+      </form>}
+      {submitState !== "success" && <p className={`question-note question-note--${submitState}`} role="status" aria-live="polite">{submitState === "error" ? copy.error : copy.note}</p>}
+    </section>}
+    <button className="question-trigger" type="button" aria-label={open ? copy.close : copy.trigger} aria-expanded={open} onClick={() => setOpen((current) => !current)}><MessageCircle size={22} aria-hidden="true" /></button>
+  </div>;
+}
 
 function normalizeCopy(value: unknown, lang: Lang): unknown {
   if (isValidElement(value)) {
@@ -454,5 +525,6 @@ export default function Home() {
     <section className="final-cta"><div className="final-cta-visual" aria-hidden="true"><Image className="final-cta-photo-desktop" src={asset("/img/academy-final-training.jpg")} alt="" fill sizes="100vw" /><Image className="final-cta-photo-mobile" src={asset("/img/academy-final-training-mobile.jpg")} alt="" fill sizes="(max-width: 600px) 100vw, 1px" /></div><div className="final-cta-tint" aria-hidden="true" /><div className="shell final-cta-content"><p className="eyebrow">{t.finalEyebrow}</p><h2>{t.finalTitle}</h2><p>{t.finalCopy}</p><div className="final-actions"><button className="button button-dark" type="button" onClick={() => setPaymentModal("full")}>{t.enrollNow}</button><button className="button button-dark-outline" type="button" onClick={() => setPaymentModal("deposit")}>{t.reserveSpot}</button></div></div></section>
     <footer className="footer"><div className="shell footer-top"><Logo /><div className="languages" role="group" aria-label={t.language}>{(["EN", "RU", "ES"] as Lang[]).map((item) => <button className={lang === item ? "selected" : ""} type="button" aria-pressed={lang === item} onClick={() => { selectLanguage(item); setCertOpen(null); }} key={item}>{item}</button>)}</div><a href="mailto:axs.intimflex@gmail.com">axs.intimflex@gmail.com</a></div><div className="shell footer-bottom"><span>{t.footer}</span><a className="footer-terms" href={asset(termsCopy.file)} target="_blank" rel="noopener noreferrer">{termsCopy.label}</a><span>© {new Date().getFullYear()} AXS INTIMFLEX</span></div></footer>
     {paymentModal && <CourseLanguageModal variant={paymentModal} siteLang={lang} onClose={() => setPaymentModal(null)} />}
+    <QuestionWidget lang={lang} />
   </main>;
 }
