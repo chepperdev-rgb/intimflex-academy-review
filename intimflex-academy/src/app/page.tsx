@@ -307,8 +307,13 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
   useEffect(() => {
     if (!expanded) return;
     const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
     const desktop = window.matchMedia("(min-width: 801px)").matches;
-    if (desktop) document.body.style.overflow = "hidden";
+    if (desktop) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.overflow = "hidden";
+    }
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setPhase((current) => current === "closed" || current === "closing" ? current : "closing");
       if (event.key === "Tab") {
@@ -320,8 +325,9 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
     };
-  }, [expanded, phase]);
+  }, [expanded]);
 
   const card = <>
     {expanded && <button className={`ilona-backdrop ilona-backdrop--${phase}`} type="button" tabIndex={-1} aria-label={copy.close} onClick={closeCard} />}
@@ -337,9 +343,7 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
         <div className="ilona-card-face ilona-card-front">
           <Image className="hero-visual-image" src={asset("/img/academy-hero-training-v20260906-new.jpg")} alt="Ilona Chernobai" fill sizes="(max-width: 800px) 100vw, 40vw" priority />
           <div className="visual-caption"><span>{eyebrow}</span><b>{cohort} · {spotsLabel}</b></div>
-          <button ref={triggerRef} className="ilona-open" type="button" tabIndex={expanded ? -1 : 0} aria-label={copy.open} aria-expanded={expanded} onClick={openCard}>
-            <span>{copy.tap}</span>
-          </button>
+          <button ref={triggerRef} className="ilona-open" type="button" tabIndex={expanded ? -1 : 0} aria-label={copy.open} aria-expanded={expanded} onClick={openCard} />
         </div>
         <div className="ilona-card-face ilona-card-back" onPointerDown={beginBackTap} onPointerMove={trackBackTap} onClick={closeFromMobileCard}>
           <button ref={closeRef} className="ilona-close" type="button" aria-label={copy.close} onClick={closeCard}><X aria-hidden="true" size={20} /></button>
@@ -348,9 +352,9 @@ function IlonaCard({ lang, eyebrow, cohort, spotsLabel }: { lang: Lang; eyebrow:
             <h3>{copy.role}</h3>
             {copy.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
-          <button className="ilona-flip-label" type="button" onClick={closeCard}>{copy.tap}</button>
         </div>
       </div>
+      <button className="ilona-flip-label" type="button" onClick={expanded ? closeCard : openCard}>{copy.tap}</button>
     </div>
   </>;
 
