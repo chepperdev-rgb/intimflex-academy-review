@@ -659,3 +659,4 @@ html[lang="ru"] .hero h1 { line-height: .94; }
   .ilona-card-back { transform: none; opacity: 0; transition: opacity .01ms linear; }
   .ilona-card--opening .ilona-card-back, .ilona-card--open .ilona-card-back { opacity: 1; }
 }
+html.academy-lang-pending body { visibility: hidden; }
