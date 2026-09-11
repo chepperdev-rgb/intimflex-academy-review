@@ -8,9 +8,29 @@ const display = Cormorant({ variable: "--font-display-family", subsets: ["latin"
 const sans = Archivo({ variable: "--font-body-family", subsets: ["latin"], weight: "variable" });
 
 export const metadata: Metadata = {
-  title: "AXS INTIMFLEX Academy — Trainer Certification",
-  description: "AXS INTIMFLEX Trainer Certification Program. First cohort starts October 12, 2026.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://academy.axsintimflex.com"),
+  title: "AXS INTIMFLEX Academy | Trainer Certification",
+  description: "International online trainer certification program by AXS INTIMFLEX.",
+  openGraph: {
+    type: "website",
+    url: "https://academy.axsintimflex.com/",
+    title: "AXS INTIMFLEX Academy | Trainer Certification",
+    description: "International online trainer certification program by AXS INTIMFLEX.",
+    images: [
+      {
+        url: "/img/academy-social-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AXS INTIMFLEX Academy — Trainer Certification Program",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AXS INTIMFLEX Academy | Trainer Certification",
+    description: "International online trainer certification program by AXS INTIMFLEX.",
+    images: ["/img/academy-social-preview.jpg"],
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
