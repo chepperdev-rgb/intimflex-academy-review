@@ -717,9 +717,9 @@ html.academy-lang-pending body { visibility: hidden; }
 /* Hero online-course indicator: compact, unframed and isolated from the hero layout. */
 .hero-eyebrow-line { display: flex; min-width: 0; align-items: center; gap: 14px; margin-bottom: 18px; white-space: nowrap; }
 .hero-eyebrow-line .eyebrow { flex: 0 0 auto; margin: 0; }
-.online-course-indicator { display: inline-flex; min-width: 0; align-items: center; gap: 6px; color: rgb(247 244 250 / .78); font-size: 8px; font-weight: 700; letter-spacing: .1em; line-height: 1; white-space: nowrap; }
+.online-course-indicator { display: inline-flex; min-width: 0; align-items: center; gap: 6px; color: var(--rose-gold); font-size: 8px; font-weight: 700; letter-spacing: .1em; line-height: 1; white-space: nowrap; }
 .online-course-indicator > i { width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: #ff315b; box-shadow: 0 0 7px rgb(255 49 91 / .68); animation: academy-online-pulse .7s ease-in-out infinite; }
-.online-course-indicator > b { color: rgb(247 244 250 / .34); font-size: 8px; font-weight: 400; }
+.online-course-indicator > b { color: var(--rose-gold); font-size: 8px; font-weight: 400; opacity: .62; }
 .online-course-indicator svg { width: 12px; height: 12px; flex: 0 0 12px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.45; }
 @keyframes academy-online-pulse {
   0%, 100% { opacity: .48; filter: brightness(.78); }
