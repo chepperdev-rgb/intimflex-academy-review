@@ -717,22 +717,23 @@ html.academy-lang-pending body { visibility: hidden; }
 /* Hero online-course indicator: compact, unframed and isolated from the hero layout. */
 .hero-eyebrow-line { display: flex; min-width: 0; align-items: center; gap: 14px; margin-bottom: 18px; white-space: nowrap; }
 .hero-eyebrow-line .eyebrow { flex: 0 0 auto; margin: 0; }
-.online-course-indicator { display: inline-flex; min-width: 0; align-items: center; gap: 6px; color: var(--rose-gold); font-size: 8px; font-weight: 700; letter-spacing: .1em; line-height: 1; white-space: nowrap; }
-.online-course-indicator > i { width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: #ff315b; box-shadow: 0 0 7px rgb(255 49 91 / .68); animation: academy-online-pulse .7s ease-in-out infinite; }
-.online-course-indicator > b { color: var(--rose-gold); font-size: 8px; font-weight: 400; opacity: .62; }
-.online-course-indicator svg { width: 12px; height: 12px; flex: 0 0 12px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.45; }
+.online-course-indicator { display: inline-flex; min-width: 0; align-items: center; gap: 5px; color: var(--petal); font-size: 10px; font-weight: 800; letter-spacing: .07em; line-height: 1; white-space: nowrap; }
+.online-course-indicator > i { width: 10px; height: 10px; flex: 0 0 10px; border-radius: 50%; background: #ff315b; box-shadow: 0 0 9px rgb(255 49 91 / .78), 0 0 3px rgb(255 89 113 / .92); animation: academy-online-pulse .65s ease-in-out infinite; }
+.online-course-indicator > b { color: var(--rose-gold); font-size: 10px; font-weight: 300; opacity: .72; }
+.online-course-indicator svg { width: 13px; height: 13px; flex: 0 0 13px; fill: none; stroke: var(--rose-gold); stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.45; }
 @keyframes academy-online-pulse {
-  0%, 100% { opacity: .48; filter: brightness(.78); }
-  34% { opacity: 1; filter: brightness(1.55); }
+  0%, 100% { opacity: .5; filter: brightness(.82); }
+  34% { opacity: 1; filter: brightness(1.6); }
 }
 @media (max-width: 800px) {
-  .hero-eyebrow-line { gap: 8px; }
-  .online-course-indicator { gap: 4px; font-size: 7px; letter-spacing: .055em; }
-  .online-course-indicator > i { width: 5px; height: 5px; flex-basis: 5px; }
-  .online-course-indicator svg { width: 11px; height: 11px; flex-basis: 11px; }
+  .hero-eyebrow-line { justify-content: space-between; gap: 8px; }
+  .online-course-indicator { flex: 0 0 auto; gap: 4px; margin-left: auto; font-size: 9px; letter-spacing: .02em; }
+  .online-course-indicator > i { width: 9px; height: 9px; flex-basis: 9px; }
+  .online-course-indicator > b { font-size: 9px; }
 }
 @media (max-width: 340px) {
-  .online-course-indicator { gap: 3px; font-size: 6.4px; letter-spacing: .035em; }
+  .online-course-indicator { gap: 3px; font-size: 8px; letter-spacing: 0; }
+  .online-course-indicator svg { width: 11px; height: 11px; flex-basis: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .online-course-indicator > i { animation: none; opacity: .8; filter: none; }
