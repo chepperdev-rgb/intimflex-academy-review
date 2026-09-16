@@ -450,6 +450,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [paymentModal, setPaymentModal] = useState<"deposit" | "full" | null>(null);
   const [certOpen, setCertOpen] = useState<number | null>(null);
+  const [returnUrl, setReturnUrl] = useState<string | null>(null);
   useEffect(() => { document.documentElement.classList.remove("academy-lang-pending"); }, []);
   const selectLanguage = (next: Lang) => {
     localStorage.setItem("axs-academy-language", next);
@@ -508,7 +509,29 @@ export default function Home() {
   const close = () => setMenuOpen(false);
   const navIds = ["program", "outcome", "investment", "faq"];
   useEffect(() => { document.documentElement.lang = lang.toLowerCase(); }, [lang]);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const source = params.get("from");
+    const rawReturn = params.get("return_to");
+    const requestedLanguage = params.get("lang")?.toUpperCase();
+    if (requestedLanguage === "EN" || requestedLanguage === "RU" || requestedLanguage === "ES") selectLanguage(requestedLanguage);
+    if ((source !== "main" && source !== "go") || !rawReturn) return;
+    try {
+      const parsed = new URL(rawReturn);
+      const allowedOrigin = source === "main" ? "https://axsintimflex.com" : "https://go.axsintimflex.com";
+      if (parsed.origin === allowedOrigin) queueMicrotask(() => setReturnUrl(parsed.toString()));
+    } catch {}
+  }, []);
+  const returnCopy = lang === "RU" ? "Вернуться" : lang === "ES" ? "Volver" : "Return";
+  const returnToSource = () => {
+    if (!returnUrl) return;
+    window.history.back();
+    window.setTimeout(() => {
+      if (document.visibilityState === "visible") window.location.replace(returnUrl);
+    }, 900);
+  };
   return <main id="top">
+    {returnUrl && <button className="academy-return" type="button" onClick={returnToSource} aria-label={returnCopy}><X size={18} aria-hidden="true" /><span>{returnCopy}</span></button>}
     <header className="site-header"><Logo /><nav className="desktop-nav" aria-label="Main navigation">{t.nav.map((item, i) => <a href={`#${navIds[i]}`} key={item}>{item}</a>)}</nav><div className="header-actions"><div className="languages" role="group" aria-label={t.language}>{(["EN", "RU", "ES"] as Lang[]).map((item) => <button className={lang === item ? "selected" : ""} type="button" aria-pressed={lang === item} onClick={() => { selectLanguage(item); setCertOpen(null); close(); }} key={item}>{item}</button>)}</div><a className="header-cta" href="#investment">{t.enroll}</a><button className="menu-button" type="button" aria-expanded={menuOpen} aria-label={menuOpen ? t.close : t.open} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={19} /> : <Menu size={19} />}</button></div>{menuOpen && <nav className="mobile-nav" aria-label="Mobile navigation">{t.nav.map((item, i) => <a onClick={close} href={`#${navIds[i]}`} key={item}>{item}</a>)}<a className="mobile-nav-cta" onClick={close} href="#investment">{t.enrollNow}</a></nav>}</header>
     <section className="hero" aria-labelledby="hero-title"><video className="hero-video" autoPlay muted loop playsInline poster={asset("/img/hero-m.jpg")} aria-hidden="true"><source src={asset("/video/hero.mp4")} type="video/mp4" /></video><div className="hero-overlay" aria-hidden="true" /><div className="shell hero-grid"><div className="hero-copy"><p className="eyebrow pink">{t.heroEyebrow}</p><h1 id="hero-title">{t.heroTitle}</h1><p className="hero-lede">{t.heroLede}</p><div className="hero-meta"><span>{t.cohort}</span><span>{t.date}</span><span>{t.places}</span></div><div className="hero-actions"><a className="button button-primary" href="#investment">{t.enrollNow}</a><a className="button button-ghost" href="#investment">{t.reserveSpot}</a></div></div><IlonaCard lang={lang} eyebrow={t.heroEyebrow} cohort={t.cohort} spotsLabel={spotsLabel} /></div><div className="shell hero-facts">{t.facts.map((fact, i) => <span key={fact} className={i === 3 ? "last-fact" : ""}>{fact}</span>).flatMap((node, i, all) => i < all.length - 1 ? [node, <i key={`arrow-${i}`}>→</i>] : [node])}</div></section>
     <section className="brand-strip" aria-label="Academy path">
